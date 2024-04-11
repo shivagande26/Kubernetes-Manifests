@@ -8,4 +8,4 @@ spec:
   containers:
     - name: app
       image: ubuntu
-      command: ["slleep","10"]
+      command: ["sleep", "10"]
