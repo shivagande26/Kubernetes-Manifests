@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb
+spec:
+  serviceName: mongodb
+  replicas: 3
+  selector:
+    matchLabels:
+      role: mongo
+      environment: test
+  template:
+    metadata:
+      labels:
+        role: mongo
+        environment: test
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo
+          #if the liveness probe fails kubernetes restarts pod.
+          livenessProbe:
+            exec:
+              command:
+                - mongosh
+                - --eval
+                - db.adminCommand('ping')
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 3
+          # If readiness probe fails kubernetes will not send the traffic to that pod.
+          readinessProbe:
+            exec:
+              command:
+                - mongosh
+                - --eval
+                - db.adminCommand('ping')
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 3
+          # If the startup probe fails kuberntes follows pods restart policy.
+          startupProbe:
+            exec:
+              command:
+                - mongosh
+                - --eval
+                - db.adminCommand('ping')
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 3
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: mongodb-cm
+                  key: mongodb-root-uname
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: test123
+          command:
+            - mongod
+            - "--bind_ip_all"
+            - "--replSet"
+            - rs0
+            # - "--smallfiles"
+            # - "--noprealloc"
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: mongodb-data
+              mountPath: /data/db
+        # - name: mongo-sidecar
+        #   image: cvallance/mongo-k8s-sidecar
+        #   env:
+        #     - name: MONGO_SIDECAR_POD_LABELS
+        #       value: "role=mongo,environment=test"
+        #     - name: MONGODB_USERNAME
+        #       value: admin
+        #     - name: MONGODB_PASSWORD
+        #       value: test123
+  volumeClaimTemplates:
+    - metadata:
+        name: mongodb-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: mongo-ebs-storage
+        resources:
+          requests:
+            storage: 1Gi

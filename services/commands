@@ -1,0 +1,5 @@
+To apply service file.
+kubectl apply -f <service_filename>.yaml
+
+To get the list of services.
+kubectl get services

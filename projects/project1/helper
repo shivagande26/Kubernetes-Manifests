@@ -1,0 +1,30 @@
+rs.initiate({
+  _id: "rs0",
+  version: 1,
+  members: [
+    { _id: 0, host: "mongodb-0.mongodb.default.svc.cluster.local:27017" },
+    { _id: 1, host: "mongodb-1.mongodb.default.svc.cluster.local:27017" },
+    { _id: 2, host: "mongodb-2.mongodb.default.svc.cluster.local:27017" },
+  ],
+});
+rs.status();
+
+use studentdb
+db.student.insert({ name: "Shiva" });
+db.student.find();
+
+# Enabling secondary nodes for read access.
+db.getMongo().setReadPref('primaryPreferred');
+use studentdb
+db.student.find()
+
+db.runCommand({ usersInfo: 1 })
+show collections
+db.dropDatabase()
+
+mongosh -u admin -p testtesttest
+show databases
+use studentdb
+db.getUsers()
+
+db.createUser({user: "admin",pwd: "test123",roles: [ "readWrite", "dbAdmin" ]})

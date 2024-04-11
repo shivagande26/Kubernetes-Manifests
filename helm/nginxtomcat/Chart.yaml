@@ -1,0 +1,4 @@
+apiVersion: v2
+name: nginxtomcat
+description: "to deploy nginx and tomcat"
+version: 0.0.1

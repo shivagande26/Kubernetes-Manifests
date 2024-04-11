@@ -1,0 +1,16 @@
+# Minimum and maximum amount of cpu should allocate to the pod. If they are not defined kubernetes allocates default values.
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: cpu-default-limit
+spec:
+  limits:
+    - default:
+        cpu: 500m
+      defaultRequest:
+        cpu: 500m
+      max:
+        cpu: 1
+      min:
+        cpu: 100m
+      type: Container

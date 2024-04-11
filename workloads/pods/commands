@@ -1,0 +1,33 @@
+To show all the pods with labels in default namespace.
+kubectl get pods --show-labels
+
+To craete the pods with manifest file.
+kubectl apply -f <file_name>.yaml
+
+To display the nodes on which pods were deployed.
+kubectl get pods -o wide
+
+To delete pod.
+kubectl delete pod <pod_name>
+kubectl delete -f <file_name>.yaml
+
+To enter into the pod.
+kubectl exec -it <pod_name> /bin/sh
+
+To describe pod.
+kubectl describe pod <pod_name>
+
+To label pod.
+kubectl label pod <pod_name> <key>=<value>
+
+To display the CPU and Memory utilization of the pod.
+kubectl top pod <pod_name>
+
+To listen on the port of local machine that is mapped to pod.
+kubectl port-forward <pod_name> <local_machine_port>:<pod/container_port>
+
+To see the logs of a pods.
+kubectl logs <pod_name>
+
+To see the logs of a particular container in a pod.
+kubectl logs <pod_name> -c <container_name>

@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: appset
+  labels:
+    type: webapp
+spec:
+  selector:
+    matchLabels:
+      app: appset
+  template:
+    metadata:
+      labels:
+        app: appset
+    spec:
+      containers:
+        - name: myapp
+          image: nginx:latest

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: student-app-one
+spec:
+#  imagePullSecrets:
+#    - name: dockerhubsecret
+  containers:
+    - name: student-app
+      image: tomcat
+      ports:
+        - containerPort: 8080
+      imagePullPolicy: Never

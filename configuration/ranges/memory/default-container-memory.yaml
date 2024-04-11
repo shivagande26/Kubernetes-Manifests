@@ -1,0 +1,16 @@
+# minimum and maximum amount of memory should allocate to the pod. If they are not defined the kubernetes allocates default values specified in below.
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: memory-default-limit
+spec:
+  limits:
+    - default:
+        memory: 1Gi
+      defaultRequest:
+        memory: 1Gi
+      max:
+        memory: 1Gi
+      min:
+        memory: 500Mi
+      type: Container

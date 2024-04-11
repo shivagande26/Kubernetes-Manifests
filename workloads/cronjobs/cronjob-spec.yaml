@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: test
+spec:
+  schedule: "* * * * *" #every minute
+  # permission to run concurrent jobs that are allowed to run at any given time.
+  # allowed values:
+  # Allow(default) -> to allow the concurrent execution of jobs.
+  # Forbid -> restricts the job until the old job gets completed.
+  # Replace -> stops the currently running job and creates the new job.
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: test
+              image: busybox:1.28
+              command:
+                - /bin/sh
+                - -c
+                - sleep 10
+          restartPolicy: OnFailure

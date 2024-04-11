@@ -1,0 +1,2 @@
+eksctl create cluster -f clusterconfig.yaml
+eksctl delete cluster -f clusterconfig.yaml

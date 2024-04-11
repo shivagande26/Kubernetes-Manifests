@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: student-app
+spec:
+#  imagePullSecrets:
+#    - name: dockerhubsecret
+  containers:
+    - name: student-app
+      image: nginx:21t67et46
+      ports:
+        - containerPort: 80
+      imagePullPolicy: Always

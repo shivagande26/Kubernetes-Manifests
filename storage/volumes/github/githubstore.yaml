@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp
+spec:
+  restartPolicy: Never
+  containers:
+    - name: app
+      image: nginx
+      volumeMounts:
+        - mountPath: /data
+          name: data-volume
+  volumes:
+    - name: data-volume
+      gitRepo:
+        repository: "https://github.com/shivagande26/kubeadm-scripts.git"

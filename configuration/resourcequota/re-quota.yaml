@@ -1,0 +1,14 @@
+#this will limit the resources at namespace level
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: ns-quota
+spec:
+  hard:
+    requests.cpu: 1
+    requests.memory: "1Gi"
+    limits.cpu: 2
+    limits.memory: "2Gi"
+#    pods: 10
+#    secrets: 10
+#    configmaps: 10

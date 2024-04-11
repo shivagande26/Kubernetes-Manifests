@@ -1,0 +1,24 @@
+1) When POD goes to pending state.
+   -> Taint may be applied on the nodes and pod may not tolarate the taint that is applied. Then the pod goes to pending state.
+   -> Then PVC is not properly attached to POD then pod goes to pending state.
+   -> The available resources(CPU, Memory) not available with nodes to schedule the pod then pod will go to pending state.
+   -> If the requested CPU and Memory is not present with the nodes then pods go to pending state.
+   -> If the networking problem is available in kubernetes cluster then pod will be in pending state.
+
+2) POD continuously restarting.
+   -> The livenessprobe is failing.
+   -> The process inside the pod may be restarting.
+
+3) POD goes to OOM error.
+   -> CPU and Memory were not sufficient inorder to run the pod.
+
+4) The PVC is in pending state.
+   -> The PV might not created.
+   -> The access modes and capacity of the available PV is not matched to connect to PVC then PVC will be in pending state.
+
+5) CrashLoopBackOff state.
+   -> If the two pods of different deployment are unable to connect with each other then Pod will go to CrashLoopBackOff error state. If it still after few restarts then pod goes to error state.
+
+6) Why our pods will not be deployed to the master nodes.
+   -> The reason is because the taints are applied on master node and our pods will not tolerate the taint. This is the reason the pods will not be deployed on master node.
+

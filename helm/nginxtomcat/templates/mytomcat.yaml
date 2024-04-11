@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mytomcat
+  labels:
+    type: webapp
+{{- include "mychart.labels" . | indent 4 }}
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: webapp
+    spec:
+      containers:
+        - name: tomcatapp
+          image: {{ .Values.mytomcat.image }}
+          ports:
+            - containerPort: {{ .Values.mytomcat.port }}
+  replicas: {{ .Values.mytomcat.replicas }}
+  selector:
+    matchLabels:
+      type: webapp

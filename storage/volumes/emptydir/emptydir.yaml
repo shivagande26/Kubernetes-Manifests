@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webserver
+spec:
+  containers:
+    - name: app
+      image: nginx
+      volumeMounts:
+        - mountPath: /data
+          name: data-volume
+  volumes:
+    - name: data-volume
+      emptyDir:
+        sizeLimit: 500Mi

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: regularapp
+  labels:
+    type: web
+spec:
+ restartPolicy: Never 	
+ containers:
+ - name: mycontainer
+   image: busybox
+   command: ["sh", "-c", "sllleep 10"]

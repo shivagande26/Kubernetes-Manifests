@@ -1,0 +1,15 @@
+mytomcat:
+  image: tomcat
+  port: 8080
+  replicas: 3
+
+mynginx:
+  image: nginx
+  port: 80
+  replicas: 3
+
+dbconfig:
+  mysqluname: admin
+  mysqlendpoint: test
+  mysqltoken: token
+  color: blue

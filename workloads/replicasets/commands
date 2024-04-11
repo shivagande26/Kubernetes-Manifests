@@ -1,0 +1,2 @@
+kubectl apply -f myreplicaset.yaml
+kubectl scale --replicas=6 replicaset <replicaset_name>

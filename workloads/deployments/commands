@@ -1,0 +1,26 @@
+To apply deployment manifest file.
+kubectl apply -f mydeployment.yaml
+
+To set image for the existing deployment.(remember this image will not be updated in manifest file)
+kubectl set image deployment/<deployment_name> <container_name>=<new_image_name>:<image_tag>
+
+To edit the deployment in k8s cluster.
+kubectl edit deployment <deployment_name>
+
+To check the rollout status.
+kubectl rollout status deployment/<deployment_name>
+
+To check the rollout history.
+kubectl rollout history deployment/<deployment_name>
+
+To undo the rollout.
+kubectl rollout undo deployment/<deployment_name> --to-revision=<revision_number>
+
+To pause the rollout.
+kubectl rollout pause deployment/<deployment_name>
+
+To resume the rollout.
+kubectl rollout resume deployment/<deployment_name>
+
+To scale the replica count in the deployment.
+kubectl scale deployment/<deployment_name> --replicas=<replica_number>

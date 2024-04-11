@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.wordpressSvc.name }}
+  labels:
+    app: wordpress
+spec:
+  ports:
+    - port: {{ .Values.wordpressSvc.svcPort }}
+      targetPort: {{ .Values.wordpressSvc.targetPort }}
+  selector:
+    app: wordpress

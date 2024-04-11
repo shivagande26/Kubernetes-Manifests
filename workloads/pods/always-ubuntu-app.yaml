@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myappone
+  labels:
+    type: frontend
+spec:
+  containers:
+    - name: app
+      image: ubuntu
+      command: ["slleep","10"]

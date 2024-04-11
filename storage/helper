@@ -1,0 +1,19 @@
+Step - 1
+a) Create an EKS cluster with the clusteconfig file I provided.
+b) Install helm in your local machine. Below is the link -> https://helm.sh/docs/intro/install/
+c) Connect to your EKS cluster. Check the connection.
+
+Step - 2
+Install CSI driver in EKS cluster by following below steps.
+a) After connection execute the below commands.
+
+helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+helm repo update
+
+helm upgrade --install aws-ebs-csi-driver --namespace kube-system aws-ebs-csi-driver/aws-ebs-csi-driver
+
+Step - 3
+a) Check the pods CSI driver installed in kube-system namespace with below commands.
+b) Give administrator permissions to the cluster for easy use through IAM.
+
+kubectl get pods -n kube-system

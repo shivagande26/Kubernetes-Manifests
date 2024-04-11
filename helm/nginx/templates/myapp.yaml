@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ .Values.nginx.name }}
+  labels:
+    type: frontend
+    {{- template "mychart.labels" }}
+spec:
+  containers:
+    - name: app
+      image: nginx
+      tag: {{ .Values.nginx.imageTag }}
+      ports:
+        - containerPort: {{ .Values.nginx.containerPort }}

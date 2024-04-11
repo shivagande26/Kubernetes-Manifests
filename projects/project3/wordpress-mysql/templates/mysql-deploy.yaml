@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.mysqlDeploy.name }}
+  labels:
+    app: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql
+          tag: {{ .Values.mysqlDeploy.imageTag }}
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: password
+          ports:
+            - containerPort: {{ .Values.mysqlDeploy.containerPort }}
+              name: mysql
+          volumeMounts:
+            - name: mysql-volume
+              mountPath: {{ .Values.mysqlDeploy.mountPath }}
+      volumes:
+        - name: mysql-volume
+          persistentVolumeClaim:
+            claimName: {{ .Values.mysqlDeploy.pvcName }}

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mymachine
+spec:
+  restartPolicy: Never
+  containers:
+    - name: machine
+      image: ubuntu
+      command: ["sh", "-c"]
+      args: ["shuf -i 1-100 -n 1 >> /data/number.txt"]
+      volumeMounts:
+        - mountPath: /data
+          name: data-volume
+  volumes:
+    - name: data-volume
+      hostPath:
+        path: /data/unique/
+        type: Directory

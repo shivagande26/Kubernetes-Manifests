@@ -1,0 +1,9 @@
+curl http://localhost:8001/apis -k
+curl http://localhost:8001/apis -k | grep "name"
+
+
+kubectl auth can-i create deployment
+
+kubectl auth can-i create deployment --as dev-user
+
+kubectl auth can-i create deployment --as dev-user --namespace test

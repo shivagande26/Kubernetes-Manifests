@@ -1,0 +1,11 @@
+To taint a node
+kubectl taint node <node_name> <key>=<value>:<effect>
+
+Three types of effects.
+
+1. NoSchedule -> Pods will not be scheduled on the nodes.
+2. PreNoSchedule -> Pods will prefer will not be scheduled on the node.
+3. NoExecute -> New pods will not be scheduled and existing pods which were already running will be evected it they do not tolerate the taint.
+
+To untaint a node
+kubectl taint node <node_name> <key>=<value>:<effect>-

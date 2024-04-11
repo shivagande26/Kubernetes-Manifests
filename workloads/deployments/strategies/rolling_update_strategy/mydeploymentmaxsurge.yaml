@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  labels:
+    type: webapp
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: webapp
+    spec:
+      containers:
+        - name: mywebapp
+          image: nginx
+  replicas: 3
+  selector:
+    matchLabels:
+      type: webapp
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2

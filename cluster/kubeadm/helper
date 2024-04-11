@@ -1,0 +1,11 @@
+kubeadm join 65.2.175.130:6443 --token sbx3g6.c4iwbib36l4k5p8i \
+        --discovery-token-ca-cert-hash sha256:89e6eba540c8a7f3e25e2d863468ca8a231459bf951dfc0413e2b62e39c98ccf \
+        --control-plane
+
+
+kubeadm token create --print-join-command (on master node)
+kubeadm join 65.2.175.130:6443 --token y9ie3w.aa7ujjnxle2egk01 --discovery-token-ca-cert-hash sha256:89e6eba540c8a7f3e25e2d863468ca8a231459bf951dfc0413e2b62e39c98ccf 
+
+kubectl get --raw='/readyz?verbose'
+
+kubectl label node ip-172-31-43-7 node-role.kubernetes.io/worker=worker

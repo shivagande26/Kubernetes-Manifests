@@ -1,0 +1,5 @@
+nginx:
+  name: myapp
+  imageTag: latest
+  containerPort: 80
+

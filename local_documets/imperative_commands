@@ -1,0 +1,6 @@
+kubectl run --image=nginx <pod_name>
+kubectl create deployment --image=nginx <deployment_name>
+kubectl expose deployment <deployment_name> --port 80
+kubectl edit deployment <deployment_name>
+kubectl create deployment <deployment_name> --image=<image_name> --dry-run=client -o yaml
+kubectl replace -f nginx.yaml

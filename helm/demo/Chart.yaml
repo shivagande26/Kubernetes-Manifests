@@ -1,0 +1,4 @@
+apiVersion: v2
+name: nginx-app
+description: "demo chart"
+version: 0.0.2

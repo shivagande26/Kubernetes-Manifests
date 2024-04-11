@@ -1,0 +1,1 @@
+This chart contains k8s manifest files(deployments nginx,tomcat and configmap)

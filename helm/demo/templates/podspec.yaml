@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.myapp.name }}
+  labels:
+    type: frontend
+{{- include "nginxapp.labels" . | indent 4 }}
+    {{- if eq .Values.myapp.image "nginx" }}
+    type: webapp
+    {{- end }}
+spec:
+  containers:
+    - name: app
+      {{- with .Values.myapp }}
+      image: {{ .image | default "busybox" }}
+      ports:
+        - containerPort: {{ .containerPort }}
+      {{- end }}

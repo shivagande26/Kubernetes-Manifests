@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mynginx-{{ .Release.Name }}
+  labels:
+    type: webapp
+{{- include "mychart.labels" . | indent 4 }}
+{{- if eq .Values.mynginx.image "nginx" }}
+    a: b
+{{- end }}
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: webapp
+    spec:
+      containers:
+        - name: nginxapp
+          {{- with .Values.mynginx }}
+          image: {{ .image | default "nginx" }}
+          ports:
+            - containerPort: {{ .port }}
+  replicas: {{ .replicas }}
+  {{- end }}
+  selector:
+    matchLabels:
+      type: webapp

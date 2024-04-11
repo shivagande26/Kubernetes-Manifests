@@ -1,0 +1,4 @@
+Welcome to Helm Deployment
+
+Your release name should be {{ .Release.Name }}
+Your chart name should be {{ .Chart.Name }}

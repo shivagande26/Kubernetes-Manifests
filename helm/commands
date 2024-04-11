@@ -1,0 +1,50 @@
+helm repo add <repository name> <repo-url> -> To add helm repo to helm list
+helm repo list -> To list repositories.
+helm repo remove <repository name> -> To remove repository.
+helm repo update <repository name> -> To update repository.
+helm search repo <chart name> -> To search a chart in repository. 
+
+helm install <release_name> <reponame>/<configuration file>
+helm install test stable/wordpress
+helm install test ../demo/ --set image.tag=latest --set service.type=NodePort --dry-run
+
+helm uninstall test --keep-history -> To uninstall repo and maintain history.
+ 
+helm delete test -> Deletes entire release.
+
+helm list -> To list installed charts.
+
+helm create <chart name> -> Creates helm chart.
+helm show values <chart path> -> Displays chat values in human readable format. 
+
+helm upgrade <release name> <repository path> -> To update deployers
+helm upgrade test ./helm-repository/nginx-app/
+
+helm fetch stable/wordpresssta
+
+Types of hooks.
+pre-install
+post-install
+pre-upgrade
+post-upgrade
+pre-delete
+post-delete
+pre-rollback
+post-rollback
+
+helm ls
+helm create custom
+helm install custom ./custom --dry-run
+helm show values ./custom
+helm install custom ./custom --set image.tag=latest --dry-run
+helm install custom ./custom --set image.tag=latest --set service.type=NodePort --dry-run 
+helm install custom ./custom -f <values_file_name.yaml> --dry-run
+helm install custom ./custom
+helm upgrade custom ./custom
+helm history custom
+helm rollback custom 1
+helm status demo
+helm delete custom
+helm lint mychart/
+helm package custom/
+helm list

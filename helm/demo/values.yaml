@@ -1,0 +1,10 @@
+myapp:
+  name: myapp
+  image: nginx
+  containerPort: 80
+
+dbconfig:
+  mysqluname: admin
+  mysqlendpoint: test
+  mysqltoken: token
+  color: blue

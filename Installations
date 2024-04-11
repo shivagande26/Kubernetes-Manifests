@@ -1,0 +1,30 @@
+kubectl installation
+For windows - https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
+
+For Linux -
+curl -LO "https://dl.k8s.io/release/1.25.4/bin/linux/amd64/kubectl"
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+kubectl version --client
+
+For Mac -
+curl -LO "https://dl.k8s.io/release/1.25.4/bin/darwin/amd64/kubectl"
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+sudo chown root: /usr/local/bin/kubectl
+kubectl version --client
+
+k9s installation
+For Windows -
+Via scoop - scoop install k9s
+Via chocolatey - choco install k9s
+
+For Linux -
+Via LinuxBrew - brew install derailed/k9s/k9s
+Via PacMan - pacman -S k9s
+
+For Mac -
+Via Homebrew - brew install derailed/k9s/k9s
+Via MacPort - sudo port install k9s
+
+eksctl Installation
+https://eksctl.io/installation/

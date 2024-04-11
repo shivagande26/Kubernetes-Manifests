@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql-db
+spec:
+  containers:
+  - name: database
+    image: mysql
+    env:
+    - name: MYSQL_USER
+      valueFrom:
+        configMapKeyRef:
+          name: app-config
+          key: mysqlusername

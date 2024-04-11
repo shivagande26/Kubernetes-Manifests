@@ -1,0 +1,9 @@
+Imperative approach
+To create a configmap.
+kubectl create configmap <configmap_name>
+
+To create a configmap with literals.
+kubectl create configmap <configmap_name> --from-literal=MYSQL_ROOT_PASSWORD=<password>
+
+Declarative approach.
+kubectl apply -f <configmap_filename>.yaml
