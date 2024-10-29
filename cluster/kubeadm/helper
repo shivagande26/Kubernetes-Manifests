@@ -8,4 +8,4 @@ kubeadm join 65.2.175.130:6443 --token y9ie3w.aa7ujjnxle2egk01 --discovery-token
 
 kubectl get --raw='/readyz?verbose'
 
-kubectl label node ip-172-31-43-7 node-role.kubernetes.io/worker=worker
+kubectl label node ip-172-31-47-200 node-role.kubernetes.io/worker=worker

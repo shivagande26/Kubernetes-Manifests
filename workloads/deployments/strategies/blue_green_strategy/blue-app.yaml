@@ -13,8 +13,8 @@ spec:
     spec:
       containers:
         - name: mywebapp
-          image: nginx:latest
-  replicas: 1
+          image: nginx:latest #v1
+  replicas: 3
   selector:
     matchLabels:
       type: webapp

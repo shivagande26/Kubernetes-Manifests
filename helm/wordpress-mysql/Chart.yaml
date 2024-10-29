@@ -1,4 +1,4 @@
 name: wordpress-app
-version: 0.1.0
-appVersion: 0.2.0
+version: 0.1.0  # specifies the version of the chart being deployed
+appVersion: 0.2.0  # specifies the version of the application that is deployed by the chart.
 apiVersion: v2

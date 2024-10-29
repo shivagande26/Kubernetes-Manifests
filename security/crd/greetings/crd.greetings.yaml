@@ -1,0 +1,30 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: shivas.shiva.com
+spec:
+  scope: Namespaced
+  group: shiva.com
+  names:
+    kind: Shiva
+    singular: shiva
+    plural: shivas
+    shortNames:
+      - sh
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                greeting:
+                  type: string
+                time:
+                  type: number
+                  minimum: 0
+                  maximum: 23

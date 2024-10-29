@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginxapp
+  labels:
+    type: nginxapp
+spec:
+  containers:
+    - name: nginxapp
+      image: nginx:{{ .Values.global.imgVersion }}
+      ports:
+        - containerPort: {{ .Values.nginx.port }}

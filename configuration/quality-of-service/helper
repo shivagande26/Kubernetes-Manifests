@@ -1,0 +1,14 @@
+Gaurenteed:
+Every Container in the Pod must have a memory limit and a memory request.
+For every Container in the Pod, the memory limit must equal the memory request.
+Every Container in the Pod must have a CPU limit and a CPU request.
+For every Container in the Pod, the CPU limit must equal the CPU request.
+
+Burstable:
+The Pod does not meet the criteria for QoS class Guaranteed.
+At least one Container in the Pod has a memory or CPU request or limit.
+
+Best Effort:
+If CPU and memory are not allocated to the pod qos will be best effort.
+
+Best Effort > Burstable > Gaurenteed

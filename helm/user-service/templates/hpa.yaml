@@ -1,0 +1,16 @@
+{{- if .Values.hpa.deploy }}
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: myapp
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: myappone-{{ .Chart.Name }}
+  {{- with .Values.webapp }}
+  minReplicas: {{ .minReplicCount }}
+  maxReplicas: {{ .maxReplicaCount }}
+  targetCPUUtilizationPercentage: {{ .cpuUtilizationPercent }}
+  {{- end }}
+{{- end }}

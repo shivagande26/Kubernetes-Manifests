@@ -1,0 +1,3 @@
+nginxapp:
+  imgTag: v1
+environ: prod

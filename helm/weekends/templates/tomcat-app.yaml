@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tomapp-{{ .Release.Name }}-{{ .Chart.Name }}
+  labels:
+{{- include "tomnginx.lables" . | indent 4 }}
+spec:
+  containers:
+    - name: app
+      image: tomcat:{{ .Values.nginxapp.imgTag }}
+      ports:
+        - containerPort: 8080

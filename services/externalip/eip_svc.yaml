@@ -3,8 +3,6 @@ kind: Service
 metadata:
   name: eip-svc
 spec:
-#  selector:
-#    name: MyApp
   ports:
     - name: http
       protocol: TCP

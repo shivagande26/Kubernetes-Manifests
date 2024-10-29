@@ -31,3 +31,11 @@ kubectl logs <pod_name>
 
 To see the logs of a particular container in a pod.
 kubectl logs <pod_name> -c <container_name>
+
+
+
+
+
+
+
+

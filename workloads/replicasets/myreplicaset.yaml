@@ -3,7 +3,7 @@ kind: ReplicaSet
 metadata:
   name: myapp
   labels:
-    type: webapp
+    typetypes: webappapp
 spec:
   template:
     metadata:
@@ -13,10 +13,8 @@ spec:
     spec:
       containers:
         - name: mywebapp
-          image: nginx:stable-perl
-        - name: tom
-          image: tomcat
-  replicas: 3
+          image: nginx:latest
+  replicas: 10
   selector:
     matchLabels:
       type: webapp

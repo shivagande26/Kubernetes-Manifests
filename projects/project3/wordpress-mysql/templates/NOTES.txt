@@ -1,0 +1,1 @@
+Deployed wordpress application. Connect to it for creating blogs.

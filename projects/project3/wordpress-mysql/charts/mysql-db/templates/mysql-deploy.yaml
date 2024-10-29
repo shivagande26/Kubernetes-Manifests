@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    app: mysql
+{{- include "mysql.labels" . | indent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          {{- with .Values.mysqlDeploy }}
+          image: mysql:{{ .imageTag }}
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: password
+          ports:
+            - containerPort: {{ .containerPort }}
+              name: mysql
+          volumeMounts:
+            - name: mysql-volume
+              mountPath: {{ .mountPath }}
+      volumes:
+        - name: mysql-volume
+          persistentVolumeClaim:
+            claimName: {{ .pvcName }}
+          {{- end }}

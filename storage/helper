@@ -17,3 +17,11 @@ a) Check the pods CSI driver installed in kube-system namespace with below comma
 b) Give administrator permissions to the cluster for easy use through IAM.
 
 kubectl get pods -n kube-system
+
+Retain
+Recycle
+Delete
+
+ReadWriteOnce - the volume can be mounted as read-write by a single node.
+ReadOnlyMany - the volume can be mounted as read-only by many nodes.
+ReadWriteMany - the volume can be mounted as read-write by many nodes.

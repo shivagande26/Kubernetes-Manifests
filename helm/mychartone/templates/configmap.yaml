@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-{{ .Release.Name }}
+data:
+  {{- range $key,$val := .Values.dbconfig }}
+    {{ $key }}: {{ $val | upper }}
+    {{- end }}

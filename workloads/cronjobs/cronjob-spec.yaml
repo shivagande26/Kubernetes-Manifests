@@ -4,6 +4,7 @@ metadata:
   name: test
 spec:
   schedule: "* * * * *" #every minute
+  # 0 8 * * *
   # permission to run concurrent jobs that are allowed to run at any given time.
   # allowed values:
   # Allow(default) -> to allow the concurrent execution of jobs.
@@ -16,9 +17,9 @@ spec:
         spec:
           containers:
             - name: test
-              image: busybox:1.28
-              command:
-                - /bin/sh
-                - -c
-                - sleep 10
+              image: 8072388539/goldmetal:v2.0
+              env:
+                - name: GOLD_API_ACCESS_TOKEN
+                  value: goldapi-c6dnsm1hap1sa-io
           restartPolicy: OnFailure
+#      backoffLimit: 3

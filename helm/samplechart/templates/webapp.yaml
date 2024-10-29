@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp
+  labels:
+    type: web
+{{- include "webapp.labels" . | indent 4 }}
+spec:
+  containers:
+    - name: web
+      {{- with .Values.nginxapp }}
+      image: nginx:{{ .imgTag }}
+      ports:
+        - containerPort: {{ .appPort }}
+      {{- end }}

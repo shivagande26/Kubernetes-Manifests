@@ -1,0 +1,4 @@
+apiVesrion: v2
+name: SampleChart
+description: Deploying NGINX application.
+version: 0.0.1

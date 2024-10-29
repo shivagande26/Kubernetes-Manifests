@@ -4,14 +4,14 @@ metadata:
   namespace: default
   name: developer-role
 rules:
+#  - apiGroups: [""] # "" indicates the core API group ["apps"]
+#    resources: ["configmap"]
+#    verbs: ["get", "list"]
   - apiGroups: [""] # "" indicates the core API group ["apps"]
-    resources: ["ConfigMap"]
-    verbs: ["get", "list"]
-  - apiGroups: [""] # "" indicates the core API group ["apps"]
-    resources: ["pods"]
-    verbs: ["get", "list"]
+    resources: ["pods","configmaps"]
+    verbs: ["get","list","delete","watch"]
   - apiGroups: ["apps"]
     resources: ["deployments"]
-    verbs: ["get", "list"]
+    verbs: ["get", "list", "create"]
 
   # resourceNames: ["pod_name", "pod_name"]

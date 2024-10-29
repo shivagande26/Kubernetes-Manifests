@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tomapp
+  labels:
+    type: tom
+{{- include "webapp.labels" . | indent 4 }}
+spec:
+  containers:
+    - name: tom
+      {{- with .Values.tomcatapp }}
+      image: tomcat:{{ .imgTag }}
+      ports:
+        - containerPort: {{ .appPort }}
+      {{- end }}

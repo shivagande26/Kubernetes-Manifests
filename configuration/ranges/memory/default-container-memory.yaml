@@ -1,4 +1,5 @@
 # minimum and maximum amount of memory should allocate to the pod. If they are not defined the kubernetes allocates default values specified in below.
+# if they are defined then they should fall under minimum and maximum range below.
 apiVersion: v1
 kind: LimitRange
 metadata:

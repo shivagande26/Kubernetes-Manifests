@@ -13,8 +13,8 @@ spec:
     spec:
       containers:
         - name: mywebapp
-          image: nginx:stable-perl
-  replicas: 1
+          image: nginx:stable-perl #v2
+  replicas: 3
   selector:
     matchLabels:
       type: newwebapp

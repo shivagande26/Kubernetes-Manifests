@@ -3,8 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Values.wordpressDeploy.name }}
   labels:
-    app: wordpress
-#    test: upgrade
+{{- include "wordpress.deploy.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.wordpressDeploy.replicaCount }}
   selector:

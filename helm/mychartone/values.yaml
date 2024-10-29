@@ -1,0 +1,19 @@
+nginx:
+  imgTag: latest
+  port: 80
+
+mysubchart:
+  tomcat:
+    imgTag: 10.1.24-jre21-temurin-jammy
+    port: 8080
+
+global:
+  imgTag: latest
+
+dbconfig:
+  mysqluname: admin
+  mysqlendpoint: test
+  mysqltoken: token
+  color: blue
+
+hpatest: false

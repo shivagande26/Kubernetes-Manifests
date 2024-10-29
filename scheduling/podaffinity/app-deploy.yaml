@@ -5,7 +5,7 @@ metadata:
   labels:
     type: webapp
 spec:
-  replicas: 20
+  replicas: 1
   selector:
     matchLabels:
       app: webapp
@@ -27,5 +27,5 @@ spec:
                   - key: type
                     operator: In
                     values:
-                      - webappone
+                      - webapp
               topologyKey: kubernetes.io/hostname

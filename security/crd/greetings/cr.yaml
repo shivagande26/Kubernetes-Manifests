@@ -1,0 +1,7 @@
+apiVersion: shiva.com/v1
+kind: Shiva
+metadata:
+  name: early-greetings
+spec:
+  greeting: morning
+  time: 9

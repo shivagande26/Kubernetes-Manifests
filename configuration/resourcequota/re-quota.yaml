@@ -1,4 +1,4 @@
-#this will limit the resources at namespace level
+#this will limit the resources in a namespace level
 apiVersion: v1
 kind: ResourceQuota
 metadata:

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myappone
+  labels:
+    type: webapp
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: mywebapp
+          image: nginx:stable-perl
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app

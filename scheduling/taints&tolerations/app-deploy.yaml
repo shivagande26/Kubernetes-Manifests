@@ -18,7 +18,7 @@ spec:
           ports:
             - containerPort: 80
       tolerations:
-        - key: "type"
+        - key: "a"
           operator: "Equal"
-          value: "web"
+          value: "b"
           effect: "NoSchedule"

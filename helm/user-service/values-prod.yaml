@@ -1,0 +1,16 @@
+webapp:
+  imgVersion: latest
+  containerPort: 80
+  replicas: 3
+  minReplicCount: 1
+  maxReplicaCount: 10
+  cpuUtilizationPercent: 1
+
+hpa:
+  deploy: true
+
+mysubchart:
+  tomapp:
+    imgVersion: 10.1.24-jre21-temurin-jammy
+    containerPort: 8080
+    replicaCount: 480

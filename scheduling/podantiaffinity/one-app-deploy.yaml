@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp
+  name: frontend-app
   labels:
     type: webapp
 spec:
@@ -14,7 +14,7 @@ spec:
       containers:
         - name: mywebapp
           image: nginx
-  replicas: 1
+  replicas: 10
   selector:
     matchLabels:
       type: webapp

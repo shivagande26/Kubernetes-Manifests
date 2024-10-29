@@ -1,0 +1,17 @@
+{{- if eq .Values.environ "dev" }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-{{ .Release.Name }}-{{ .Chart.Name }}
+  labels:
+{{- include "tomnginx.lables" . | indent 4 }}
+    {{- if eq .Values.nginxapp.imgTag "latest" }}
+    tag: latest
+    {{- end }}
+spec:
+  containers:
+    - name: app
+      image: nginx:{{ .Values.nginxapp.imgTag }}
+      ports:
+        - containerPort: 80
+{{- end }}

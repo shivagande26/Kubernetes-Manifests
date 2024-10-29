@@ -1,0 +1,4 @@
+tomapp:
+  imgVersion: latest
+  containerPort: 8080
+  replicaCount: 3

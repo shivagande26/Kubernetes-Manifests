@@ -1,0 +1,1 @@
+NGINX & TOMCAT applications are deployed by this helm chart.

@@ -1,0 +1,19 @@
+Installation of kubeseal
+linux
+KUBESEAL_VERSION=$(curl -s https://api.github.com/repos/bitnami-labs/sealed-secrets/tags | jq -r '.[0].name' | cut -c 2-)
+wget "https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION}/kubeseal-${KUBESEAL_VERSION}-linux-amd64.tar.gz"
+tar -xvzf kubeseal-${KUBESEAL_VERSION}-linux-amd64.tar.gz kubeseal
+sudo install -m 755 kubeseal /usr/local/bin/kubeseal
+
+mac
+brew install kubeseal
+
+add helm repository
+helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets
+
+install helm repo
+helm install sealed-secrets/sealed-secrets -n kube-system --generate-name
+
+kubeseal --controller-name=sealed-secrets-1718853564 --controller-namespace=kube-system --fetch-cert > cert-one.pem
+
+kubeseal --format=yaml --cert=cert-one.pem --secret-file mysql-secret.yaml --sealed-secret-file mysql-sealed-secret.yaml

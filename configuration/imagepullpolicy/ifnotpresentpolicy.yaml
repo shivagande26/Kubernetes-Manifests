@@ -1,13 +1,14 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: student-app-one
+  name: student-app-tom
+  namespace: monitoring
 spec:
 #  imagePullSecrets:
 #    - name: dockerhubsecret
   containers:
     - name: student-app
-      image: tomcat
+      image: nginx
       ports:
         - containerPort: 8080
       imagePullPolicy: IfNotPresent

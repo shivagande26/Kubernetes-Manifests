@@ -1,0 +1,5 @@
+aoiVersion: v2
+name: wp-database
+version: 0.0.1
+appVersion: 5.6
+description: "chart will deploy mysql application to k8s cluster."

@@ -35,7 +35,7 @@ spec:
                 name: wordpress
                 port:
                   number: 8080
-          # - path: /
+          # - path: /in
           #   pathType: Prefix
           #   backend:
           #     service:

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tomapp-one-{{ .Chart.Version }}
+  labels:
+  {{- include "app.labels" . | indent 4 }}
+spec:
+  containers:
+    - name: tom
+      image: tomcat:{{ .Values.tocat.tag }}
+      ports:
+        - containerPort: 8080
+      resources:
+      {{- toYaml .Values.tocat.tomcatresources | nindent 8 }}

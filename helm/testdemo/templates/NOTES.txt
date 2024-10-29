@@ -1,0 +1,1 @@
+This helm chart deployes nginx application. Nginx application will be running on port 80.

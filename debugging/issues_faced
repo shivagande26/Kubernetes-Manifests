@@ -21,7 +21,6 @@ OOMKilled
 CreateContainerConfigError
 ->If the configmap expected by the pod is not present in K8S cluster this error will appear.
 
-
 Job
 BackoffLimitExceeded
 -> When the functionality of the job fails it will retry for specified amount of backoff limit and if it is not successful after the specified backoff limit then this error will occur.

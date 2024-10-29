@@ -18,29 +18,10 @@ wordpressPv:
   scName: manual
   accessMode: ReadWriteOnce
   hostPath: /var/www/html
-mysqlDeploy:
-  name: mysql
-  imageTag: 5.6
-  containerPort: 3306
-  mountPath: /var/lib/mysql
-  pvcName: mysql-pvc
-mysqlSvc:
-  name: mysql
-  svcPort: 3306
-  targetPort: 3306
-mysqlPvc:
-  name: mysql-pvc
-  scName: manual
-  accessMode: ReadWriteOnce
-  capacity: 1Gi
-mysqlPv:
-  name: mysql-pv
-  scName: manual
-  capacity: 1Gi
-  accessMode: ReadWriteOnce
-  hostPath: /mnt/data
 appIngress:
   name: wordpress-ingress
   ingressType: kong
   svcName: wordpress-svc
   svcPort: 8080
+global:
+  mysqlSecret: bXlzcWxteXNxbA==

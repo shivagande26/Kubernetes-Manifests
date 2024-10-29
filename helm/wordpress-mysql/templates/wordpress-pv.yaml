@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   name: {{ .Values.wordpressPv.name }}
   labels:
-    type: local
+{{- include "wordpress.vol.labels" . | indent 4 }}
 spec:
   storageClassName: {{ .Values.wordpressPv.scName }}
   capacity:

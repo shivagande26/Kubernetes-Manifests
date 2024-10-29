@@ -1,0 +1,1 @@
+I have applied NGINX application successfully to Kubernetes cluster.

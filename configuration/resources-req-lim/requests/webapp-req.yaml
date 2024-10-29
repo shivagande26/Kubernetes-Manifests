@@ -5,7 +5,7 @@ metadata:
   labels:
     app: webapp
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: webapp
@@ -23,6 +23,3 @@ spec:
             requests:
               cpu: 1
               memory: "1Gi"
-#            limits:
-#              cpu:
-#              memory: "1Gi"

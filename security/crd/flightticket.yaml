@@ -1,0 +1,8 @@
+apiVersion: flights.com/v1
+kind: FlightTicket
+metadata:
+  name: test
+spec:
+  from: Hyderabad
+  to: Hyderabad
+  number: 2

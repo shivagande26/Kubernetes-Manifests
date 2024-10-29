@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp-{{ .Release.Name }}-{{ .Chart.Name }}
+  labels:
+    type: frontend
+spec:
+  containers:
+    - name: app
+      {{- with .Values.nginx }}
+      image: nginx:{{ .imgTag | default "v1" }}
+      ports:
+        - containerPort: {{ .port }}
+      {{- end }}

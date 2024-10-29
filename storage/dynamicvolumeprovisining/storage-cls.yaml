@@ -4,6 +4,6 @@ metadata:
   name: ebs-storage
 provisioner: ebs.csi.aws.com
 volumeBindingMode: WaitForFirstConsumer #Immediate
-reclaimPolicy: Delete #Retain
+reclaimPolicy: Delete #Retain #Recycle
 parameters:
   type: gp2

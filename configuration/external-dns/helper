@@ -1,0 +1,11 @@
+Step - 1 : Enable IAM OIDC provider.
+eksctl utils associate-iam-oidc-provider --region=ap-south-1 --cluster=uat-test --approve
+
+Step - 2 : Create IAM policy.
+aws iam create-policy --policy-name "ExternalDNSUpdatesPolicy" --policy-document file://external-dns-policy.json
+
+Step - 3 : Create IAM service account.
+eksctl create iamserviceaccount --name external-dns-sa --namespace kube-system --cluster uat-test --attach-policy-arn arn:aws:iam::975050065855:policy/ExternalDNSUpdatesPolicy --override-existing-serviceaccounts --approve
+
+Step - 4 : Deploy external-dns deployment.
+kubectl apply -f external-dns-deploy.yaml

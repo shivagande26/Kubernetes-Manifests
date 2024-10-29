@@ -1,0 +1,7 @@
+nginxapp:
+  imgTag: latest
+  appPort: 80
+
+tomcatapp:
+  imgTag: latest
+  appPort: 8080

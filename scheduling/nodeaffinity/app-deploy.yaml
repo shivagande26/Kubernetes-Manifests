@@ -12,6 +12,7 @@ spec:
                 operator: In
                 values:
                   - b
+                  - c
   containers:
     - name: nginx
       image: nginx

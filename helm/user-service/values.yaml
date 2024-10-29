@@ -1,0 +1,25 @@
+webapp:
+  imgVersion: stable-perl
+  containerPort: 80
+  replicas: 3
+  minReplicCount: 1
+  maxReplicaCount: 10
+  cpuUtilizationPercent: 1
+
+hpa:
+  deploy: false
+
+dbconfig:
+  mysqluname: admin
+  mysqlendpoint: test
+  mysqltoken: token
+  color: blue
+
+global:
+  replicaCount: 3
+
+mysubchart:
+  tomapp:
+    imgVersion: 10.1.24-jre21-temurin-jammy
+    containerPort: 8080
+    replicaCount: 4

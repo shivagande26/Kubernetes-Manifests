@@ -22,7 +22,7 @@ kind: Ingress
 metadata:
   name: {{ .Values.appIngress.name }}
   labels:
-    name: wordpress-ingress
+{{- include "wordpress.ing.labels" . | indent 4 }}
 spec:
   ingressClassName: {{ .Values.appIngress.ingressType }}
   rules:

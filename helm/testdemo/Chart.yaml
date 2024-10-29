@@ -1,0 +1,5 @@
+apiVersion: v2
+name: nginx-deploy
+description: "Deploying nginx chart to K8S cluster"
+version: 0.0.1
+appVersion: latest

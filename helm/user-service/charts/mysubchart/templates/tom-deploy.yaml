@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tom-app
+  labels:
+{{- include "myapp.lbl" . | indent 4}}
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: app
+    spec:
+      containers:
+        - name: mywebapp
+          {{- with .Values.tomapp  }}
+          image: tomcat:{{ .imgVersion | default "latest"}}
+          ports:
+            - containerPort: {{ .containerPort }}
+          {{- end }}
+  replicas: {{ .Values.global.replicaCount }}
+  selector:
+    matchLabels:
+      type: app

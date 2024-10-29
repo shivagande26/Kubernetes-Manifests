@@ -7,7 +7,7 @@ spec:
 #    - name: dockerhubsecret
   containers:
     - name: student-app
-      image: nginx:21t67et46
+      image: nginx
       ports:
         - containerPort: 80
       imagePullPolicy: Always

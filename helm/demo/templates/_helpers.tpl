@@ -1,4 +1,4 @@
-{{- define "nginxapp.labels"  }}
+{{- define "app.labels"  }}
 deployedby: shiva
 with: helm
 date: {{ now | htmlDate }}

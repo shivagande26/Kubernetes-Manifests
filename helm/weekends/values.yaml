@@ -1,0 +1,10 @@
+nginxapp:
+  imgTag: latest
+
+environ: dev
+
+dbconfig:
+  mysqluname: admin
+  mysqlendpoint: test
+  mysqltoken: token
+  color: blue

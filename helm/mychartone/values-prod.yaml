@@ -1,0 +1,10 @@
+nginx:
+  imgTag: stabel-perl
+  port: 80
+
+mysubchart:
+  tomcat:
+    imgTag: latest
+    port: 8080
+
+hpatest: true

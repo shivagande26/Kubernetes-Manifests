@@ -1,6 +1,6 @@
 MongoDB in K8S
 -> We are going to deploy mongodb as deployment in K8S cluster.
--> We are going to configure CM and Secrets for environment variables.
+-> We are going to configure CM and Secrets as environment variables.
 -> We are going to configure liveness probe, readiness probe and startup probe to mongodb pods.
 -> We are going to use resource requests and limits for this mongodb.
 -> We are are going to create a namespace and deploy this mongodb pods to that namespace.
@@ -26,3 +26,5 @@ StudentStore in K8S
 -> Configuring service with NodePort and LoadBalancer type.
 -> Configuring image pull policy.
 -> Creating problems and solving problems.
+
+Sealed Secrets.

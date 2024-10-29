@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  {{- with .Values.mysqlSvc }}
+  name: {{ .name }}
+  labels:
+    app: mysql
+{{- include "mysql.labels" . | indent 4 }}
+spec:
+  ports:
+    - port: {{ .svcPort }}
+      targetPort: {{ .targetPort }}
+  selector:
+    app: mysql
+  {{- end }}

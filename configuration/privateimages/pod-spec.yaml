@@ -7,6 +7,4 @@ spec:
     - name: dockerhubsecret
   containers:
     - name: student-app
-      image: 8072388539/ubuntu-volume:v1.0
-      ports:
-        - containerPort: 8080
+      image: 8072388539/bb:v1

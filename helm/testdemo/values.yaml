@@ -1,0 +1,18 @@
+nginx:
+  tag: latest
+  nginxport: 80
+  enabled: false
+
+tocat:
+  tag: latest
+  tomport: 8080
+  tomcatresources:
+    requests:
+      cpu: 0.4
+      memory: "1Gi"
+    limits:
+      cpu: 1
+      memory: "2Gi"
+
+global:
+  label: b

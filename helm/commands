@@ -40,11 +40,36 @@ helm install custom ./custom --set image.tag=latest --dry-run
 helm install custom ./custom --set image.tag=latest --set service.type=NodePort --dry-run 
 helm install custom ./custom -f <values_file_name.yaml> --dry-run
 helm install custom ./custom
+helm get manifest custom
 helm upgrade custom ./custom
 helm history custom
 helm rollback custom 1
 helm status demo
 helm delete custom
-helm lint mychart/
+helm lint mychart
 helm package custom/
 helm list
+helm install --generate-name --dry-run mychart/charts/mysubchart
+
+{{ .Release.Name }}
+{{ .Release.Namespace }}
+{{ .Release.IsUpgrade }}  ->  This is set to true if current operation is upgrade.
+{{ .Release.IsInstall }}  ->  This is set to true if current operation is install.
+
+Accessing values in Chart.yaml file.
+{{ .Chart.Name }}
+{{ .Chart.Version }}
+
+Functions in templates
+quote -> applies quotes to strings.
+eg: {{ quote .Values.favourite.drink }}
+    {{ .Values.favourite.drint | quote }}
+
+upper -> makes characters as upper cases.
+eg: {{ .Values.favourite.drink | upper | quote }}
+
+repeat -> repeats string
+eg: {{ .Values.favourite.drink | repeat 5 | quote }}
+
+operators
+eq, ne, lt, gt, and, or

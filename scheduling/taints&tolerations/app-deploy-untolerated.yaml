@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: untolorated-webapp
 spec:
-  replicas: 20
+  replicas: 10
   selector:
     matchLabels:
       app: webapp

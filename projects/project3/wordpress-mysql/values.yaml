@@ -4,41 +4,39 @@ wordpressDeploy:
   imageTag: 4.8-apache
   containerPort: 80
   pvcName: wordpress-pvc
-wordpressSvc:
-  name: wordpress-svc
-  svcPort: 8080
-  targetPort: 80
+  containerResources:
+    requests:
+      cpu: 0.2
+      memory: "500Mi"
+    limits:
+      cpu: 0.4
+      memory: "600Mi"
+  livenessProbe:
+    httpGet:
+      path: /
+      port: 80
+    initialDelaySeconds: 3
+    periodSeconds: 3
+    timeoutSeconds: 4
+    failureThreshold: 3
+
 wordpressPvc:
   name: wordpress-pvc
   scName: manual
   accessMode: ReadWriteOnce
   capacity: 1Gi
+
 wordpressPv:
   name: wordpress-pv
   scName: manual
   accessMode: ReadWriteOnce
   hostPath: /var/www/html
-mysqlDeploy:
-  name: mysql
-  imageTag: 5.6
-  containerPort: 3306
-  mountPath: /var/lib/mysql
-  pvcName: mysql-pvc
-mysqlSvc:
-  name: mysql
-  svcPort: 3306
-  targetPort: 3306
-mysqlPvc:
-  name: mysql-pvc
-  scName: manual
-  accessMode: ReadWriteOnce
-  capacity: 1Gi
-mysqlPv:
-  name: mysql-pv
-  scName: manual
-  capacity: 1Gi
-  accessMode: ReadWriteOnce
-  hostPath: /mnt/data
+
+wordpressSvc:
+  name: wordpress-svc
+  svcPort: 8080
+  targetPort: 80
+
 appIngress:
   name: wordpress-ingress
   ingressType: kong

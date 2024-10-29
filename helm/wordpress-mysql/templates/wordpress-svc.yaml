@@ -9,4 +9,4 @@ spec:
     - port: {{ .Values.wordpressSvc.svcPort }}
       targetPort: {{ .Values.wordpressSvc.targetPort }}
   selector:
-    app: wordpress
+{{- include "wordpress.deploy.labels" . | indent 4 }}

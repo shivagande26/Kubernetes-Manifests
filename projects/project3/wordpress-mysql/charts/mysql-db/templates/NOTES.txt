@@ -1,0 +1,1 @@
+Deployed mysql database. This will be used by the wordpress to store data.

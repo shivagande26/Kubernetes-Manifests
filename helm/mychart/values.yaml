@@ -1,0 +1,11 @@
+nginx:
+  imgVersion: latest
+  port: 80
+
+mysubchart:
+  tomcat:
+    imgVersion: latest
+    port: 8080
+
+global:
+  imgVersion: latest

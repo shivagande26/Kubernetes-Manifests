@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myappone-{{ .Chart.Name }}
+  labels:
+{{- include "webapp.labels" . | indent 4 }}
+{{- if eq .Values.webapp.imgVersion "latest" }}
+    a: b
+{{- end }}
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: webapp
+    {{- with .Values.webapp }}
+    spec:
+      containers:
+        - name: mywebapp
+          image: nginx:{{ .imgVersion | default "v1" }}
+          ports:
+            - containerPort: {{ .containerPort }}
+              {{- end }}
+  replicas: {{ .Values.global.replicaCount }}
+  selector:
+    matchLabels:
+      type: webapp

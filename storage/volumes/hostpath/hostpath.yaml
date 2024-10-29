@@ -7,8 +7,13 @@ spec:
   containers:
     - name: machine
       image: ubuntu
-      command: ["sh", "-c"]
-      args: ["shuf -i 1-100 -n 1 >> /data/number.txt"]
+      volumeMounts:
+        - mountPath: /data
+          name: data-volume
+  initContainers:
+    - name: git-repo-clone
+      image: 8072388539/ubuntu-git
+      command: ["git clone https://github.com/bitnami-labs/sealed-secrets.git"]
       volumeMounts:
         - mountPath: /data
           name: data-volume

@@ -2,7 +2,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: "uat-dev"
+  name: "uat-test"
   region: "ap-south-1"
   version: "1.23"
 
@@ -11,6 +11,6 @@ nodeGroups:
     instanceType: t3.medium
     desiredCapacity: 3
     volumeSize: 30
-    privateNetworking: true
+#    privateNetworking: true
     ssh:
       publicKeyName: jdk
