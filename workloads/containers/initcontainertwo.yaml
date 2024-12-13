@@ -6,7 +6,7 @@ spec:
   containers:
     - name: myapp
       image: nginx
-#  initContainers:
-#    - name: test
-#      image: busybox
-#      command: ["nslookup","https://www.google.com"]
+  initContainers:
+    - name: test
+      image: busybox
+      command: ["nslookup","https://www.google.com"]

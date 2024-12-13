@@ -4,7 +4,6 @@ metadata:
   name: webapp
   labels:
     type: frontend
-  namespace: monitoring
 spec:
   containers:
     - name: app
@@ -16,5 +15,5 @@ spec:
           cpu: 200m
           memory: "500Mi"
         limits:
-          cpu: 1
-          memory: "1Gi"
+          cpu: 5
+          memory: "5Gi"

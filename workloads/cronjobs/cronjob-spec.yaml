@@ -17,9 +17,11 @@ spec:
         spec:
           containers:
             - name: test
-              image: 8072388539/goldmetal:v2.0
-              env:
-                - name: GOLD_API_ACCESS_TOKEN
-                  value: goldapi-c6dnsm1hap1sa-io
+#              image: 8072388539/goldmetal:v2.0
+              image: busybox
+              command: [ "sh", "-c", "sleep 10" ]
+#              env:
+#                - name: GOLD_API_ACCESS_TOKEN
+#                  value: goldapi-c6dnsm1hap1sa-io
           restartPolicy: OnFailure
 #      backoffLimit: 3

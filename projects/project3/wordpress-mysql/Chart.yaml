@@ -3,3 +3,8 @@ name: wordpress-deploy
 description: Deploys wordpress application.
 version: 1.0.0
 appVersion: 4.8-apache
+
+#dependencies:
+#  - name: mysql-db
+#    version: 1.0.0
+#    repository: file://Users/shivakumar/Documents/durgasoft/Kubernetes/projects/project3/charts/mysql-db

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+#  mapRoles: {}
+#  mapUsers: |
+#  - userarn: arn:aws:iam::954976304649:user/shivagande
+#    username: shivagande
+#    groups:
+#    - developer

@@ -54,18 +54,19 @@ In the prometheus console search for "http_server_requests_seconds_count" metric
 
 Alerting
 Update the below configuration in prometheus-server configmap.
+  alerting_rules.yml: |
     groups:
     - name: datastore-app
       rules:
       - alert: InstanceDown
-        expr: up{application="datastore-api"} == 0
+        expr: up{service="mysv-cip"} == 0
         for: 5s
         labels:
           severity: critical
           team: devops
         annotations:
           summary: "Application is down."
-          description: "Application is down."
+          description: "Application is not reachable. Contact DevOps team."
 
 Update the below two configuration blocks in alertmanager configmap.
 For slack web hook visit api.slack.com > your apps > Incoming Webhooks
@@ -80,7 +81,7 @@ This block defines where to send the notifications.
           {{ .CommonAnnotations.summary }}
           {{ .CommonAnnotations.description }}
         send_resolved: true
-        api_url: 'https://hooks.slack.com/services/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'
+        api_url: 'https://hooks.slack.com/services/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'
 
 Second Block:
 This block defines in which case where to send notifications. For example for below case if team, severity matches with devops, critical then it will send the notification to slack receiver which we added in above configuration if not to default receiver which is empty.
@@ -99,5 +100,47 @@ This block defines in which case where to send notifications. For example for be
 Reload the alert manager after updating the configmap of alertmanager with below curl. Update the port based on service port mapping port.
 curl -X POST http://localhost:9094/-/reload
 
+Use "kubectl port-forward svc/prometheus-alertmanager 9093:9093 -n prometheus" to connect to alert manager.
+Reach out to https://api.slack.com/ to create a webhook url and follow below.
+- Click on Your apps.
+- Click on Create New App.
+- Select From scratch.
+- Give App Name and select the workspace in dropdown list box.
+- In the left menu click on incoming webhooks.
+- Turn on Active Incoming Webhooks.
+- Scroll down and click on Add New Webhook to Workspace.
+- Copy the webhook url and paste in above config.
+
 Make the datastore application to down by updating the deployment with wrong path in liveness probe.
 We will notice alerts in slack.
+
+metrics
+http_server_requests_seconds_count
+node_cpu_seconds_total
+
+Number of pods running per namespace.
+sum(kube_pod_status_phase) by (namespace)
+count(kube_pod_status_phase{phase="Running"})
+sum(kube_pod_status_ready{namespace="monitoring", condition="true"})
+
+Pod CPU Usage (per pod)
+sum(rate(container_cpu_usage_seconds_total{image!="", pod!=""}[5m])) by (pod, namespace)
+
+Pod Memory Usage (per pod)
+sum(container_memory_usage_bytes{image!="", pod!=""}) by (pod, namespace)
+
+CPU Usage Across All Cores for nodes
+100 - (avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) by (instance) * 100)
+
+Memory Usage Percentage for nodes
+(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100
+
+Disk Usage Percentage
+(node_filesystem_size_bytes{fstype!~"tmpfs|overlay"} - node_filesystem_free_bytes{fstype!~"tmpfs|overlay"}) / node_filesystem_size_bytes{fstype!~"tmpfs|overlay"} * 100
+
+Disk Space Availablility
+node_filesystem_free_bytes{fstype!~"tmpfs|overlay"Disk
+
+up{service="mysv-cip"}
+
+https://hooks.slack.com/services/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
