@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: efs-pod-1-rom
+spec:
+  containers:
+    - name: app-container-1
+      image: nginx:latest
+      volumeMounts:
+        - mountPath: "/shared-data"
+          name: efs-volume
+  volumes:
+    - name: efs-volume
+      persistentVolumeClaim:
+        claimName: efs-pvc-static-rom
