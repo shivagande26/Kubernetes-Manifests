@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: efs-pod-rwo-3
+spec:
+  containers:
+    - name: app-container-1
+      image: nginx:latest
+      volumeMounts:
+        - mountPath: "/shared-data"
+          name: efs-volume
+  volumes:
+    - name: efs-volume
+      persistentVolumeClaim:
+        claimName: my-pvc
+  nodeName: ip-192-168-8-116.ap-south-1.compute.internal
