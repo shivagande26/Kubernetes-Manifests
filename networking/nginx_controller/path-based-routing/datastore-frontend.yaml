@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datastore-fe
+  labels:
+    type: frontend
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: frontend
+    spec:
+      containers:
+        - name: datastore-frontend
+          image: 8072388539/datastore-frontend:v1
+          env:
+          - name: API_URL
+            value: http://datastore-be-svc.default.svc.cluster.local:8081
+  replicas: 3
+  selector:
+    matchLabels:
+      type: frontend
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: datastore-fe-svc
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8081
+      targetPort: 8080
+  selector:
+    type: frontend

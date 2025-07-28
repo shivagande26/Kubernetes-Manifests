@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datastore-be
+  labels:
+    type: backend
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: backend
+    spec:
+      containers:
+        - name: datastore-backend
+          image: 8072388539/datastore-backend:v1
+  replicas: 1
+  selector:
+    matchLabels:
+      type: backend
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: datastore-be-svc
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8081
+      targetPort: 8081
+  selector:
+    type: backend
