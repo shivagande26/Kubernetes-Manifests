@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lookup
+spec:
+  initContainers:
+    - name: test
+      image: tutum/dnsutils
+      command: ["nslookup", "es-cluster-0.elasticsearch.logging.svc.cluster.local"]
+  containers:
+    - name: webapp
+      image: nginx
