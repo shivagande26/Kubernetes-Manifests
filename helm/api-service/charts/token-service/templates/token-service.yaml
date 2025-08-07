@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapptoken-{{ .Chart.Name }}
+  labels:
+  {{- include "service.labels" . | indent 4 }}
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: webapp
+    spec:
+      containers:
+        - name: mywebapp
+          {{- with .Values.tokenService }}
+          image: tomcat:{{ .img }}
+          {{- end }}
+  replicas: {{ .Values.global.replicaCount }}
+  selector:
+    matchLabels:
+      type: webapp
