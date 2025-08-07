@@ -1,0 +1,5 @@
+apiVersion: v2
+name: token-service-deploy
+description: "Deploying token service chart to K8S cluster as dependent."
+version: 0.0.1
+appVersion: latest
