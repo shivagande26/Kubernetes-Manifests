@@ -1,0 +1,5 @@
+apiVersion: v2
+name: api-service-deploy
+description: "Deploying api service chart to K8S cluster"
+version: 0.0.1
+appVersion: latest

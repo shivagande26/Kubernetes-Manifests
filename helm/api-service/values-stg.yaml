@@ -1,0 +1,3 @@
+apiService:
+  img: stable-bookworm-perl
+  replicaCount: 10

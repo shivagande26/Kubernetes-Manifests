@@ -1,0 +1,12 @@
+apiService:
+  img: latest
+  replicaCount: 10
+  deploy: true
+
+global:
+  replicaCount: 8
+
+token-service-deploy:
+  tokenService:
+    img: 10.1.24-jre21-temurin-jammy
+    replicaCount: 4
