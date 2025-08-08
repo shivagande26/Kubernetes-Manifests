@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: guestbook-applicationset
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/shivagande26/argocd-applications.git
+        revision: main
+        directories:
+          - path: mysql # Match the `mysql` directory directly
+          - path: wordpress # Match the `wordpress` directory directly
+  template:
+    metadata:
+      name: '{{path.basename}}' # Dynamically generated application name
+    spec:
+      project: default # ArgoCD project (make sure this project exists)
+      source:
+        repoURL: https://github.com/shivagande26/Kubernetes.git # Kubernetes manifests repository
+        targetRevision: main # Git branch to track
+        path: '{{path.basename}}' # Dynamically point to subdirectory in Kubernetes.git
+      destination:
+        server: https://kubernetes.default.svc # Use the in-cluster Kubernetes API URL
+        namespace: 'default' # '{{path.basename}}' # Use directory basename (e.g., `mysql`, `wordpress`) as namespace
+      syncPolicy:
+        automated:
+          prune: true # Automatically delete resources not in Git repo
+          selfHeal: true # Automatically fix discrepancies
