@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: webapp
+  name: webapp-mem
   labels:
     type: frontend
 spec:

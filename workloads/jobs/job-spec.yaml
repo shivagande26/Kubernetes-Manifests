@@ -12,7 +12,7 @@ spec:
       restartPolicy: Never
 # if the pod created by job fails then job retries it for 3 number of times.
 #  backoffLimit: 3
-#  #after how many number of successful completions the job marked as completed.
+#  after how many number of successful completions the job marked as completed.
 #  completions: 4
   #if the pod created by job runs more than 10 seconds then it will go to deadlineexceed state.
 #  activeDeadlineSeconds: 10

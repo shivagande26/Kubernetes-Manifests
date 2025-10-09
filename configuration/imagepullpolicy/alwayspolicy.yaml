@@ -11,3 +11,18 @@ spec:
       ports:
         - containerPort: 80
       imagePullPolicy: Always
+
+#---
+#
+#apiVersion: v1
+#kind: Pod
+#metadata:
+#  name: webapp
+#spec:
+#  nodeName: ip-192-168-13-191.ec2.internal
+#  containers:
+#    - name: student-app
+#      image: nginx
+#      ports:
+#        - containerPort: 80
+#      imagePullPolicy: Always

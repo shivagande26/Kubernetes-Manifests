@@ -3,8 +3,6 @@ kind: Pod
 metadata:
   name: student-app-two
 spec:
-#  imagePullSecrets:
-#    - name: dockerhubsecret
   containers:
     - name: student-app
       image: ubuntu
