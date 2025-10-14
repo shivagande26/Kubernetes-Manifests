@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: student-app
+
   name: student-store
 spec:
   replicas: 1
@@ -18,9 +19,9 @@ spec:
 #        - name: dockerhubsecret
       containers:
         - name: studentapp
-          image: 8072388539/studentstore:v2.0
+          image: 381492274187.dkr.ecr.us-east-1.amazonaws.com/app/studentstore:latest # 8072388539/studentstore:v2.0
           ports:
-            - containerPort: 8080
+            - containerPort: 8082
           imagePullPolicy: Always
           env:
             - name: MONGODB_HOST
@@ -55,7 +56,7 @@ spec:
           livenessProbe:
              httpGet:
                path: /getStudents
-               port: 8080
+               port: 8082
              initialDelaySeconds: 3
              periodSeconds: 3
              timeoutSeconds: 4
@@ -63,7 +64,7 @@ spec:
           readinessProbe:
              httpGet:
                path: /getStudents
-               port: 8080
+               port: 8082
              initialDelaySeconds: 3
              periodSeconds: 3
              timeoutSeconds: 4
@@ -71,7 +72,7 @@ spec:
           startupProbe:
              httpGet:
                path: /getStudents
-               port: 8080
+               port: 8082
              initialDelaySeconds: 3
              periodSeconds: 3
              timeoutSeconds: 4

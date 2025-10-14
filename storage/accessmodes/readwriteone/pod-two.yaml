@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp-two
+  labels:
+    type: frontend
+spec:
+  nodeName: ip-192-168-52-57.ec2.internal
+  containers:
+    - name: app
+      image: nginx
+      volumeMounts:
+        - mountPath: /data/db
+          name: data-vol
+  volumes:
+    - name: data-vol
+      persistentVolumeClaim:
+        claimName: ebs-claim

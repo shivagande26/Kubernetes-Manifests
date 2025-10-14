@@ -49,7 +49,7 @@ metadata:
   name: mongodb
 spec:
   serviceName: mongodb
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: mongodb

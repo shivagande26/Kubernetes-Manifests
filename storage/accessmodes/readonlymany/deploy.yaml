@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: webapp
+  name: webapp-ro
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+        - name: app
+          image: nginx
+          volumeMounts:
+            - name: db-store
+              mountPath: /data/db
+              readOnly: true
+      volumes:
+        - name: db-store
+          persistentVolumeClaim:
+            claimName: efs-pvc-ro

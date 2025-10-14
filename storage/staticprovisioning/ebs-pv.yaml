@@ -6,11 +6,11 @@ spec:
   accessModes:
     - ReadWriteOnce
   capacity:
-    storage: 1Gi
+    storage: 10Gi
   csi:
     driver: ebs.csi.aws.com
     fsType: ext4
-    volumeHandle: vol-08f70c10383a50b84
+    volumeHandle: vol-094d77120b4331dfb
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -18,6 +18,5 @@ spec:
             - key: topology.ebs.csi.aws.com/zone
               operator: In
               values:
-                - ap-south-1a
-                - ap-south-1b
-                - ap-south-1c
+                - us-east-1c
+                - us-east-1d
