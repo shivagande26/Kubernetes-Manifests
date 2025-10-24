@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: mywebapp
-          image: nginx
+          image: 8072388539/customnginx:v4
   replicas: 3
   selector:
     matchLabels:

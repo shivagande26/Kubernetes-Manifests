@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deploy
+  labels:
+    type: database
+spec:
+  template:
+    metadata:
+      name: mydb
+      labels:
+        type: database
+    spec:
+      serviceAccountName: mysql-creds-sa-one
+      containers:
+        - name: mydb
+          image: mysql:5.7
+          env:
+            - name: MYSQL_ROOT_PASSWORD_FILE
+              value: "/mnt/secrets-store/mysql-root-password"
+          volumeMounts:
+            - name: db-creds
+              mountPath: "/mnt/secrets-store/"
+      volumes:
+        - name: db-creds
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: mysql-db-pass
+  replicas: 1
+  selector:
+    matchLabels:
+      type: database

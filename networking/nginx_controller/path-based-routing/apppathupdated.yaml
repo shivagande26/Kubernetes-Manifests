@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: student-ingress
+  labels:
+    name: student-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/whitelist-source-range: "45.112.185.23/32"
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: datastore-fe-svc
+                port:
+                  number: 8081
+          - path: /test
+            pathType: Prefix
+            backend:
+              service:
+                name: mysv-lb
+                port:
+                  number: 8081
