@@ -142,5 +142,3 @@ Disk Space Availablility
 node_filesystem_free_bytes{fstype!~"tmpfs|overlay"Disk
 
 up{service="mysv-cip"}
-
-https://hooks.slack.com/services/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
