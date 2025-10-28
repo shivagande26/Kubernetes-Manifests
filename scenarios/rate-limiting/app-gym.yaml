@@ -1,36 +1,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: doctor-app
+  name: gym-app
   labels:
-    type: doctor-webapp
-    app: test
+    type: gym-webapp
+    app: gymtest
 spec:
   template:
     metadata:
-      name: myapp-pod
+      name: gym-pod
       labels:
-        type: doctor-webapp
+        type: gym-webapp
     spec:
       containers:
         - name: mywebapp
-          image: 8072388539/doctorapp:v1
+          image: 8072388539/gymapp:v1
           ports:
             - containerPort: 80
   replicas: 3
   selector:
     matchLabels:
-      type: doctor-webapp
+      type: gym-webapp
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: doctorapp-svc
+  name: gymapp-svc
 spec:
   type: ClusterIP
   ports:
     - port: 8081
       targetPort: 80
   selector:
-    type: doctor-webapp
+    type: gym-webapp

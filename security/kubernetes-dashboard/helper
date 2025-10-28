@@ -22,3 +22,7 @@ metadata:
   name: sa-secret
 annotations:
   kubernetes.io/service-account.name: <serviceaccountname>
+
+
+kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
+https://localhost:8443

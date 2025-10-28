@@ -4,9 +4,8 @@ metadata:
   name: aws-auth
   namespace: kube-system
 data:
-#  mapRoles: {}
-#  mapUsers: |
-#  - userarn: arn:aws:iam::954976304649:user/shivagande
-#    username: shivagande
-#    groups:
-#    - developer
+  mapUsers: |
+    - userarn: arn:aws:iam::095706880412:user/ramu
+      username: ramu
+      groups:
+      - developer

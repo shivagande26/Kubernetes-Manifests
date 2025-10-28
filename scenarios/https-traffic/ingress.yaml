@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  labels:
+    name: dg-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: doctor.makestudio.info
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: doctorapp-svc
+                port:
+                  number: 8081
+    - host: gym.makestudio.info
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gymapp-svc
+                port:
+                  number: 8081

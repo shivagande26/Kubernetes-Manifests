@@ -17,13 +17,13 @@ data:
                 else: 
                     response.success() 
     
-        @task(5) 
-        def visit_api(self): 
-            with self.client.get("/", headers={"Host": "gym.makestudio.info"}, timeout=0.2) as response: 
-                if response.request_meta["response_time"] > 200: 
-                    response.failure("API failed") 
-                else: 
-                    response.success() 
+#        @task(5)
+#        def visit_api(self):
+#            with self.client.get("/", headers={"Host": "gym.makestudio.info"}, timeout=0.2) as response:
+#                if response.request_meta["response_time"] > 200:
+#                    response.failure("API failed")
+#                else:
+#                    response.success()
 
 ---
 
