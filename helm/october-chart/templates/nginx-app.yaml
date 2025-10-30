@@ -1,10 +1,23 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: webapp
+  name: myapp-{{ .Release.Name }}-{{ .Chart.Name }}-{{ .Chart.Version }}
   labels:
-    type: app
+{{- include "mychart.labels" . | indent 4 }}
+  namespace: {{ .Release.Namespace }}
 spec:
-  containers:
-    - name: webapp
-      image: nginx:{{ .Values.webapp.imageTag }}
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: webapp
+    spec:
+      containers:
+        - name: mywebapp
+          {{- with .Values.webapp }}
+          image: nginx:{{ .imageTag }}
+  replicas: {{ .replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      type: webapp

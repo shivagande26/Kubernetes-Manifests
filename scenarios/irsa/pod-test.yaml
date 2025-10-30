@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: awscli
+spec:
+  serviceAccountName: s3-reader
+  containers:
+    - name: awscli
+      image: amazon/aws-cli:latest
+      command:
+        - sleep
+        - "3600"

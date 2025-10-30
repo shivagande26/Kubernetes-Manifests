@@ -1,0 +1,37 @@
+IRSA - IAM Roles For Service Account
+------------------------------------
+Step - 1 : Enable OIDC provider for your EKS cluster.
+> eksctl utils associate-iam-oidc-provider --cluster <your-cluster-name> --approve
+
+Step - 2 : Create an IAM policy for required aws service access(here in this case S3).
+> aws iam create-policy --policy-name s3-read-access-policy --policy-document file://s3-read-policy.json
+
+Step - 3 : Create an IAM role for your Kubernetes service account.
+  1st Way - Using eksctl command.
+  -------
+  > eksctl create iamserviceaccount \
+    --name s3-reader \
+    --namespace default \
+    --cluster <your-cluster-name> \
+    --attach-policy-arn arn:aws:iam::095706880412:policy/s3-read-access-policy \
+    --approve \
+    --override-existing-serviceaccounts
+
+  Above command does below:
+  -------------------------
+  - Creates a Kubernetes ServiceAccount named s3-reader in default namespace.
+  - Creates an IAM Role with trust relationship to your cluster’s OIDC provider.
+  - Attaches the S3 policy.
+
+  2nd Way - Manual IAM role creation.
+  -------
+  - Get your cluster’s OIDC issuer URL.
+  - Create a trust policy like this.
+  - Create the role with below command.
+    > aws iam create-role --role-name EKS-S3-ReadOnly-Role --assume-role-policy-document file://trust-policy.json
+  - Create the Kubernetes ServiceAccount manually.
+    > kubectl create sa s3-reader
+    > kubectl annotate sa s3-reader eks.amazonaws.com/role-arn=arn:aws:iam::<account-id>:role/EKS-S3-ReadOnly-Role
+
+ Step - 4 : Use the service account in your pod
+ > kubectl apply -f pod.yaml

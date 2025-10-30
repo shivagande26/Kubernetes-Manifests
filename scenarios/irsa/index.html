@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copied from Amazon S3</title>
+
+    <style>
+        /* === Global Styles === */
+        body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background: linear-gradient(135deg, #1e3c72, #2a5298, #f7971e, #ffd200);
+          color: #fff;
+          margin: 0;
+          padding: 0;
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          animation: bgShift 10s infinite alternate;
+        }
+
+        /* === Background Animation === */
+        @keyframes bgShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        /* === Card Container === */
+        .card {
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(10px);
+          border-radius: 16px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+          max-width: 600px;
+          width: 90%;
+          text-align: center;
+          padding: 40px 30px;
+          animation: fadeIn 1.5s ease-in-out;
+        }
+
+        /* === Header with Rainbow Gradient === */
+        h1 {
+          font-size: 2em;
+          background: linear-gradient(90deg, #ff3c00, #ff9500, #ffeb00, #00ff6a, #00d4ff, #9b00ff);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          margin-bottom: 15px;
+          letter-spacing: 1px;
+        }
+
+        /* === Subtext === */
+        p {
+          font-size: 1.1em;
+          line-height: 1.5;
+          color: #f0f0f0;
+          margin-bottom: 20px;
+        }
+
+        /* === AWS Logo === */
+        img {
+          width: 100px;
+          margin-top: 15px;
+          filter: drop-shadow(0 0 8px rgba(0,0,0,0.5));
+          border-radius: 8px;
+        }
+
+        /* === Footer === */
+        footer {
+          margin-top: 30px;
+          font-size: 0.9em;
+          color: #fff4;
+        }
+
+        /* === Fade-In Animation === */
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === Responsive === */
+        @media (max-width: 600px) {
+          .card {
+            padding: 30px 20px;
+          }
+          h1 {
+            font-size: 1.6em;
+          }
+          p {
+            font-size: 1em;
+          }
+        }
+    </style>
+</head>
+
+<body>
+<div class="card">
+    <h1>File Copied from Amazon S3</h1>
+    <p>
+        This HTML document was securely fetched from an Amazon S3 bucket using <strong>AWS EKS IRSA</strong>.
+    </p>
+
+    <p>
+        The process ensures <em>IAM-based authentication</em> and avoids static credentials for maximum security.
+    </p>
+
+    <img src="https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png" alt="AWS Logo">
+
+    <footer>
+        &copy; 2025 — Data retrieved securely from <strong>Amazon S3</strong>.
+    </footer>
+</div>
+</body>
+</html>

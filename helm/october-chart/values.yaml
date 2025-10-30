@@ -1,2 +1,18 @@
 webapp:
   imageTag: latest
+  replicaCount: 10
+
+tomapp:
+  imageTag: latest
+  replicaCount: 13
+
+environment: production
+
+dbconfig:
+  mysqluname: admin
+  mysqlendpoint: test
+  mysqltoken: token
+  color: blue
+
+global:
+  imgVersion: latest

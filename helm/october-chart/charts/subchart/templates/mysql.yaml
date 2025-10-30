@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-{{ .Release.Name }}
+  labels:
+    type: database
+{{- include "mychart.labels" . | indent 4 }}
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: database
+    spec:
+      containers:
+        - name: db
+          image: mysql:{{ .Values.global.imgVersion }}
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: shiva
+  {{- with .Values.db }}
+  replicas: {{ .replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      type: database

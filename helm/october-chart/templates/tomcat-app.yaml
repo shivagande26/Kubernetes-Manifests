@@ -1,0 +1,25 @@
+{{- if eq .Values.environment "production" }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-{{ .Release.Name }}
+  labels:
+{{- include "mychart.labels" . | indent 4 }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: webapp
+    spec:
+      containers:
+        - name: mywebapp
+          {{- with .Values.tomapp }}
+          image: tomcat:{{ .imageTag }}
+  replicas: {{ .replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      type: webapp
+{{- end }}

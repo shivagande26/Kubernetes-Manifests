@@ -1,0 +1,4 @@
+FROM amazon/aws-cli:latest
+LABEL maintainer="shiva"
+ENV S3_BUCKET_NAME=aws-s3-bucket-eks-irsa
+CMD ["s3", "cp", "s3://$S3_BUCKET_NAME/", "/home/appuser", "--recursive"]
