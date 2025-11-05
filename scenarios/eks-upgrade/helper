@@ -1,0 +1,17 @@
+prerequirements
+---------------
+- Cordon the nodes.
+  kubectl cordon node <node_name>
+- Make sure we go through the release notes.
+  https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG
+- Understand EKS cluster upgrades are irreversable.
+- Test it in lower environments first.
+- Before upgrading, Control plane and node groups should be on same version.
+- Atleast 5 available ip addresses in the subnets.
+
+Process To Follow
+-----------------
+- Upgrade control plane.
+- Upgrade node groups/nodes/fargate profiles.
+- Upgrade addons.
+- Sometime EKS upgrade will make us to upgrade operators like helm, prometheus etc.,

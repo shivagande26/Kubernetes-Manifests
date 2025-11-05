@@ -1,6 +1,6 @@
 wordpressDeploy:
   name: wordpress-app
-  replicaCount: 1
+  replicaCount: 3
   imageTag: 4.8-apache
   containerPort: 80
   pvcName: wordpress-pvc

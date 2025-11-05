@@ -5,8 +5,8 @@
       "Effect": "Allow",
       "Action": ["s3:GetObject", "s3:ListBucket"],
       "Resource": [
-        "arn:aws:s3:::my-app-bucket",
-        "arn:aws:s3:::my-app-bucket/*"
+        "arn:aws:s3:::aws-s3-bucket-eks-irsa",
+        "arn:aws:s3:::aws-s3-bucket-eks-irsa/*"
       ]
     },
     {

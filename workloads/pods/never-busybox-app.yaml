@@ -5,7 +5,7 @@ metadata:
   labels:
     type: web
 spec:
- restartPolicy: Never 	
+ restartPolicy: Never
  containers:
  - name: mycontainer
    image: busybox

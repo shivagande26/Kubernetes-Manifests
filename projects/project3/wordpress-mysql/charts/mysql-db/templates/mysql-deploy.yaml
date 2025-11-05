@@ -36,4 +36,4 @@ spec:
         - name: mysql-volume
           persistentVolumeClaim:
             claimName: {{ .pvcName }}
-          {{- end }}
+        {{- end }}

@@ -1,10 +1,10 @@
 IRSA - IAM Roles For Service Account
 ------------------------------------
 Step - 1 : Enable OIDC provider for your EKS cluster.
-> eksctl utils associate-iam-oidc-provider --cluster <your-cluster-name> --approve
+> eksctl utils associate-iam-oidc-provider --cluster uat-dev --approve
 
 Step - 2 : Create an IAM policy for required aws service access(here in this case S3).
-> aws iam create-policy --policy-name s3-read-access-policy --policy-document file://s3-read-policy.json
+> aws iam create-policy --policy-name s3-read-access-policy-new --policy-document file://s3-read-policy.json
 
 Step - 3 : Create an IAM role for your Kubernetes service account.
   1st Way - Using eksctl command.
@@ -12,8 +12,8 @@ Step - 3 : Create an IAM role for your Kubernetes service account.
   > eksctl create iamserviceaccount \
     --name s3-reader \
     --namespace default \
-    --cluster <your-cluster-name> \
-    --attach-policy-arn arn:aws:iam::095706880412:policy/s3-read-access-policy \
+    --cluster uat-dev \
+    --attach-policy-arn arn:aws:iam::095706880412:policy/s3-read-access-policy-new \
     --approve \
     --override-existing-serviceaccounts
 

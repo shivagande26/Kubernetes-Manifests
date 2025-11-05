@@ -1,0 +1,13 @@
+eksctl create cluster \
+  --name uat-dev \
+  --region us-east-1 \
+  --version 1.29 \
+  --managed \
+  --nodegroup-name managed-ng-1 \
+  --instance-types t3.medium \
+  --nodes 2 \
+  --nodes-min 2 \
+  --nodes-max 5 \
+  --node-labels role=worker \
+  --ssh-access=false \
+  --enable-ssm

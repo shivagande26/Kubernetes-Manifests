@@ -11,7 +11,7 @@ spec:
       labels:
         type: database
     spec:
-      serviceAccountName: mysql-creds-sa-one
+      serviceAccountName: mysql-creds-sa
       containers:
         - name: mydb
           image: mysql:5.7
