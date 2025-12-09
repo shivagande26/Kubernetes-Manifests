@@ -18,5 +18,5 @@ spec:
   selector:
     matchLabels:
       type: webapp
-#  strategy:
-#    type: Recreate
+  strategy:
+    type: Recreate

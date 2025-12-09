@@ -3,6 +3,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: ns-quota
+  namespace: test
 spec:
   hard:
     requests.cpu: 1

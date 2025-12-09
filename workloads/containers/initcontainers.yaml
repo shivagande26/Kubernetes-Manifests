@@ -37,9 +37,9 @@ spec:
       image: 8072388539/k8s-init-container:v1.0
       env:
         - name: AWS_ACCESS_KEY_ID
-          value: <access_key_id>
+          value:
         - name: AWS_SECRET_ACCESS_KEY
-          value: <secret_access_key>
+          value:
         - name: S3_BUCKET_NAME
           value: k8s-init-container-testing
       volumeMounts:

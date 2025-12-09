@@ -7,7 +7,7 @@ data:
     [mysqld]
     host-cache-size=0
     skip-name-resolve
-    datadir=/var/lib/sql
+    datadir=/var/lib/shiva
     socket=/var/run/mysqld/mysqld.sock
     secure-file-priv=/var/lib/mysql-files
     user=mysql

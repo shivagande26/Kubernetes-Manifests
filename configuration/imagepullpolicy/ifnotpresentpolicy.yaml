@@ -3,10 +3,10 @@ kind: Pod
 metadata:
   name: student-app-tom
 spec:
-  nodeName: ip-192-168-13-191.ec2.internal
+  nodeName: node01
   containers:
     - name: student-app
       image: nginx
       ports:
-        - containerPort: 8080
+        - containerPort: 80
       imagePullPolicy: IfNotPresent
