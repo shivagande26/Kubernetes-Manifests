@@ -13,7 +13,7 @@ spec:
     - from:
         - podSelector:
             matchLabels:
-              test: test
+              type: backend
       ports:
         - protocol: TCP
           port: 3306

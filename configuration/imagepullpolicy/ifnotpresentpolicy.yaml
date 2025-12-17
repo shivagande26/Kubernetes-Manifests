@@ -3,7 +3,6 @@ kind: Pod
 metadata:
   name: student-app-tom
 spec:
-  nodeName: node01
   containers:
     - name: student-app
       image: nginx

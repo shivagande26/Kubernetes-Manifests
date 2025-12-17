@@ -9,5 +9,3 @@ spec:
     - name: app
       image: busybox
       command: ["sh", "-c", "sleep 10"]
-#    - name: app
-#      image: nginx

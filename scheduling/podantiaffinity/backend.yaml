@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-webapp
+  name: backend-webapp
   labels:
     type: webapp
 spec:
-  replicas: 1
+  replicas: 20
   selector:
     matchLabels:
       app: webapp
@@ -20,7 +20,7 @@ spec:
           ports:
             - containerPort: 80
       affinity:
-        podAffinity:
+        podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
                 matchExpressions:
@@ -28,4 +28,5 @@ spec:
                     operator: In
                     values:
                       - webapp
+                      - app
               topologyKey: kubernetes.io/hostname
