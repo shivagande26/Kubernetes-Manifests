@@ -3,5 +3,7 @@ kind: Service
 metadata:
   name: mysv-lb
 spec:
+  ports:
+    - port: 8081
   type: ExternalName
   externalName: www.youtube.com

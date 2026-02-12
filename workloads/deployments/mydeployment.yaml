@@ -13,10 +13,8 @@ spec:
     spec:
       containers:
         - name: mywebapp
-          image: nginx:latest
-  replicas: 10
+          image: nginx:1.28.1-alpine3.23
+  replicas: 100
   selector:
     matchLabels:
       type: webapp
-  strategy:
-    type: Recreate

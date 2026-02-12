@@ -13,12 +13,12 @@ spec:
     spec:
       containers:
         - name: mywebapp
-          image: nginx
-  replicas: 30
+          image: nginx:stable-alpine
+  replicas: 20
   selector:
     matchLabels:
       type: webapp
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 2
+      maxUnavailable: 1

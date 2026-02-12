@@ -81,7 +81,7 @@ This block defines where to send the notifications.
           {{ .CommonAnnotations.summary }}
           {{ .CommonAnnotations.description }}
         send_resolved: true
-        api_url: 'https://hooks.slack.com/services/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'
+        api_url: 'https://hooks.slack.com/services/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'
 
 Second Block:
 This block defines in which case where to send notifications. For example for below case if team, severity matches with devops, critical then it will send the notification to slack receiver which we added in above configuration if not to default receiver which is empty.

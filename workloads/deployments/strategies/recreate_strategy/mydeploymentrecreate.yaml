@@ -13,8 +13,8 @@ spec:
     spec:
       containers:
         - name: mywebapp
-          image: nginx:perl
-  replicas: 3
+          image: nginx:stable-alpine
+  replicas: 10
   selector:
     matchLabels:
       type: webapp

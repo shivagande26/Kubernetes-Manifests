@@ -5,7 +5,7 @@ metadata:
   labels:
     name: student-ingress
 #  annotations:
-#    nginx.ingress.kubernetes.io/whitelist-source-range: "45.112.185.23/32"
+#    nginx.ingress.kubernetes.io/whitelist-source-range: "45.112.185.95/32"
 spec:
   ingressClassName: nginx
   rules:

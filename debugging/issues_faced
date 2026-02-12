@@ -1,10 +1,10 @@
 Pods:
 CrashLoopBackOffError
--> When the pods continuously restarts the it will go to crashloopbackofferror.
+-> When the pods continuously restarts then pod will go to crashloopbackofferror.
 -> Need to check the logs and check the events
 
 ErrImageNeverPull
--> It the image pull policy is set to never and the image used in manifest file is not present on nodes then this error will appear.
+-> If the image pull policy is set to never and the image used in manifest file is not present on nodes then this error will appear.
 
 ErrImagePull
 -> If the image is not present in repositories then this error will occur.
@@ -16,7 +16,7 @@ Pending
 -> If the matching labels were not present when we deal with pod affinity then pod will go to pending state.
 
 OOMKilled
--> If memory used by the pod is more than the limit specified this error will occur and kubernetes continuously restarts the pod.
+-> If memory used by the pod is more than the limit specified this error will occur. It will be in the status of OOMKilled.
 
 CreateContainerConfigError
 ->If the configmap expected by the pod is not present in K8S cluster this error will appear.

@@ -1,0 +1,4 @@
+apiVersion: v2
+name: webapp-deploy
+description: "This deploys web application."
+version: 1.0.0

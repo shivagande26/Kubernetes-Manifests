@@ -1,0 +1,24 @@
+- Provisioning
+  - Size
+  - InstanceType
+  - Manual Creation(VPC etc)
+  - Through Terraform
+- Operations
+  - Node Scaling
+  - Security
+  - Upgrade
+- Cost Management
+  - Overprovisioning for performance
+  - Rebalancing(Scaleup and Scaledown)
+
+Importance Of Kubernetes
+  - High availability
+  - Easy scaling
+  - Faster and safer deployments
+  - Efficient use of resources (cost saving)
+Cloud Implementation Of Kubernetes
+Intro To AWS EKS
+Disadvantages of EKS Cluster Without Auto Mode
+Using EKS Auto Mode
+Diagram Presentation
+Practical

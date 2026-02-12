@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datastore-backend
+  labels:
+    type: backend
+spec:
+  template:
+    metadata:
+      name: datastore-backend
+      labels:
+        type: backend
+    spec:
+      containers:
+        - name: datastore-backend
+          image: 095706880412.dkr.ecr.us-east-1.amazonaws.com/datastore-backend-app:v35.0
+          env:
+            - name: MYSQL_HOST
+              value: jdbc:mysql://datastore.cdylzzu6vrk0.us-east-1.rds.amazonaws.com:3306/datastore?createDatabaseIfNotExist=true
+            - name: MYSQL_USERNAME
+              value: admin
+            - name: MYSQL_PASSWORD
+              value: shivakumar
+  replicas: 1
+  selector:
+    matchLabels:
+      type: backend
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: datastore-backend-svc
+spec:
+  ports:
+    - port: 8081
+      targetPort: 8084
+  selector:
+    type: backend

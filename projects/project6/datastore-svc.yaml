@@ -32,11 +32,11 @@ spec:
       containers:
       - image: 8072388539/datastore:v34.0
         name: datastore
-#        livenessProbe:
-#          httpGet:
-#            path: /test
-#            port: 80
-#          initialDelaySeconds: 3
-#          periodSeconds: 3
-#          timeoutSeconds: 4
-#          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /actuator/prometheus
+            port: 8082
+          initialDelaySeconds: 3
+          periodSeconds: 3
+          timeoutSeconds: 4
+          failureThreshold: 3

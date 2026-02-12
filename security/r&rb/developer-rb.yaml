@@ -14,7 +14,7 @@ roleRef:
 
 # mapRoles:
 # mapUsers:
-#   - userarn: arn:aws:iam::954976304649:user/shivagande
+#   - userarn: arn:aws:iam::095706880412:user/developer
 #     username: shivagande
 #     groups:
 #     - developer

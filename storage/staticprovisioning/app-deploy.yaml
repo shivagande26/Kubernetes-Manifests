@@ -14,7 +14,7 @@ spec:
       labels:
         app: web
     spec:
-      nodeName: ip-192-168-62-54.ec2.internal
+      nodeName: ip-192-168-19-31.ec2.internal
       containers:
         - image: nginx
           name: app

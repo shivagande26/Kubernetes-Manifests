@@ -1,0 +1,14 @@
+deploy:
+  webapp:
+    imageTag: latest
+    replicaCount: 3
+  tomapp:
+    imageTag: latest
+    replicaCount: 5
+
+hpa:
+  apply: false
+  webapp:
+    minReplicaCount: 1
+    maxReplicaCount: 10
+    targetCPUUtil: 1

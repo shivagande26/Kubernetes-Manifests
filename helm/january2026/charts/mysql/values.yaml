@@ -1,0 +1,4 @@
+mysqlDeploy:
+  name: mysql
+  imageTag: 5.6
+  containerPort: 3306

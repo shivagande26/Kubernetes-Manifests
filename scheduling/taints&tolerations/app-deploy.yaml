@@ -20,5 +20,5 @@ spec:
       tolerations:
         - key: "type"
           operator: "Equal"
-          value: "wbapp"
+          value: "webapp"
           effect: "NoSchedule"

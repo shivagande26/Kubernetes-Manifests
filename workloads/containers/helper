@@ -1,0 +1,9 @@
+Init containers are specialized containers that run before app containers in a Pod.
+Init containers can contain utilities or setup scripts not present in an app image.
+
+A Pod can have multiple containers running apps within it, but it can also have one or more init containers, which are run before the app containers are started.
+
+Init containers are exactly like regular containers, except:
+  - Init containers always run to completion.
+  - Each init container must complete successfully before the next one starts.
+

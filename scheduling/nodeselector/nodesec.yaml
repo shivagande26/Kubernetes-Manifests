@@ -1,11 +1,22 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: nginx
+  name: myappone
+  labels:
+    type: webapp
 spec:
-  containers:
-    - name: nginx
-      image: nginx
-      imagePullPolicy: IfNotPresent
-  nodeSelector:
-    type: db
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: webapp
+    spec:
+      containers:
+        - name: mywebapp
+          image: nginx:latest
+      nodeSelector:
+        type: backend
+  replicas: 10
+  selector:
+    matchLabels:
+      type: webapp

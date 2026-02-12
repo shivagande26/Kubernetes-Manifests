@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomappone-{{ .Chart.Name }}
+  labels:
+    type: tomapp
+{{- include "common.labels" . | indent 4 }}
+spec:
+  template:
+    metadata:
+      name: tomapp-pod
+      labels:
+        type: tomapp
+    spec:
+      containers:
+        - name: mywebapp
+          {{- with .Values.tomapp.deploy }}
+          image: tomcat:{{ .imageTag }}
+  replicas: {{ .replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      type: tomapp

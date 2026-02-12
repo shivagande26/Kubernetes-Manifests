@@ -1,0 +1,13 @@
+webapp:
+  deploy:
+    imageTag: stable-perl
+    replicaCount: 5
+tomapp:
+  deploy:
+    imageTag: 9.0.113-jdk21-corretto
+    replicaCount: 3
+hpa:
+  deploy: false
+  minCount: 1
+  maxCount: 10
+  targetCPUUtil: 1

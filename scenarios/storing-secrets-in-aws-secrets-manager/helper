@@ -45,7 +45,7 @@ eksctl create iamserviceaccount --name mysql-creds-sa --region=us-east-1 --clust
 
 - Install secret provider class.
 kubectl apply -f secretProvider.yaml
-x
+
 - Install deployment.
 kubectl apply -f deploy.yaml
 

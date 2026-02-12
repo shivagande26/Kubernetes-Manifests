@@ -26,7 +26,7 @@ spec:
   csi:
     driver: ebs.csi.aws.com
     fsType: ext4
-    volumeHandle: vol-0910adacd40430f4c
+    volumeHandle: vol-0ad83fd711eae3309
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -34,7 +34,7 @@ spec:
             - key: topology.ebs.csi.aws.com/zone
               operator: In
               values:
-                - us-east-1f
-                - us-east-1b
+                - us-east-1c
+                - us-east-1a
 
 

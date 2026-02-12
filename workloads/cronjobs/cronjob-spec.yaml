@@ -25,3 +25,18 @@ spec:
 #                  value: goldapi-c6dnsm1hap1sa-io
           restartPolicy: OnFailure
       backoffLimit: 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

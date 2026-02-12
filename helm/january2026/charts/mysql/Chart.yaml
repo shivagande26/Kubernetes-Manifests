@@ -1,0 +1,4 @@
+apiVersion: v2
+name: db-deploy
+description: "This deploys db application."
+version: 1.0.0

@@ -28,7 +28,6 @@ kind: Service
 metadata:
   name: multiport-svc
 spec:
-  type: NodePort
   selector:
     type: app
   ports:

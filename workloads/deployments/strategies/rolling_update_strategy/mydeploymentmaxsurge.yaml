@@ -14,11 +14,11 @@ spec:
       containers:
         - name: mywebapp
           image: nginx
-  replicas: 3
+  replicas: 10
   selector:
     matchLabels:
       type: webapp
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 2
+      maxSurge: 1
