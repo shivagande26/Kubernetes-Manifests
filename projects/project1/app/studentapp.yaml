@@ -19,7 +19,7 @@ spec:
 #        - name: dockerhubsecret
       containers:
         - name: studentapp
-          image: 381492274187.dkr.ecr.us-east-1.amazonaws.com/app/studentstore:latest # 8072388539/studentstore:v2.0
+          image: 8072388539/studentstore:87.0
           ports:
             - containerPort: 8082
           imagePullPolicy: Always

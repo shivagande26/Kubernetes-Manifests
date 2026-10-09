@@ -7,6 +7,6 @@ spec:
     - name: http
       protocol: TCP
       port: 80
-      targetPort: 49152
+      targetPort: 3306
   externalIPs:
-    - 198.51.100.32
+    - 79.85.89.97

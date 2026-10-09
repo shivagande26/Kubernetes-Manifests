@@ -21,31 +21,46 @@
 #      hostPath:
 #        path: /data
 
+#apiVersion: v1
+#kind: Pod
+#metadata:
+#  name: init-pod
+#spec:
+#  containers:
+#    - name: myapp
+#      image: nginx
+#      volumeMounts:
+#        - mountPath: /usr/share/nginx/html/
+#          name: db-store
+#  initContainers:
+#    - name: webapp
+#      image: 8072388539/k8s-init-container:v1.0
+#      env:
+#        - name: AWS_ACCESS_KEY_ID
+#          value: AKIA6ODU6RQ5STTWRGCZ
+#        - name: AWS_SECRET_ACCESS_KEY
+#          value: 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
+#        - name: S3_BUCKET_NAME
+#          value: k8s-init-container-testing-test
+#      volumeMounts:
+#        - mountPath: /data
+#          name: db-store
+#  volumes:
+#    - name: db-store
+#      hostPath:
+#        path: /data
+
 apiVersion: v1
 kind: Pod
 metadata:
-  name: init-pod
+  name: init-demo
 spec:
-  containers:
-    - name: myapp
-      image: nginx
-      volumeMounts:
-        - mountPath: /usr/share/nginx/html/
-          name: db-store
   initContainers:
-    - name: webapp
-      image: 8072388539/k8s-init-container:v1.0
-      env:
-        - name: AWS_ACCESS_KEY_ID
-          value:
-        - name: AWS_SECRET_ACCESS_KEY
-          value:
-        - name: S3_BUCKET_NAME
-          value: k8s-init-container-testing
-      volumeMounts:
-        - mountPath: /data
-          name: db-store
-  volumes:
-    - name: db-store
-      hostPath:
-        path: /data
+    - name: app
+      image: busybox:latest
+      command: ['sh', '-c', 'nslookup ggooooogle.com']
+  containers:
+    - name: main-app
+      image: nginx:latest
+      ports:
+        - containerPort: 80

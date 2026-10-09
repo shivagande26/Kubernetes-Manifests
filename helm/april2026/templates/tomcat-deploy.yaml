@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcatapp-{{ .Release.Name }}
+  labels:
+{{- include "common.labels" . | indent 4 }}
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: tomapp
+    spec:
+      containers:
+        - name: tom
+          {{- with .Values.webapp.tomcatDeploy }}
+          image: tomcat:{{ .imgTag }}
+  replicas: {{ .replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      type: tomapp

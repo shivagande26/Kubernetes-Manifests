@@ -1,3 +1,5 @@
+InitContainers
+--------------
 Init containers are specialized containers that run before app containers in a Pod.
 Init containers can contain utilities or setup scripts not present in an app image.
 
@@ -6,4 +8,14 @@ A Pod can have multiple containers running apps within it, but it can also have 
 Init containers are exactly like regular containers, except:
   - Init containers always run to completion.
   - Each init container must complete successfully before the next one starts.
+
+Kubelet gets exit code 0 by the initContainer when it is successfully completed. If the success code is other than 0 that means Kubelet understands that initContainer failed.
+If we have multiple initContainers, Kubernetes executes them sequentially in the order that we defined in manifest file.
+
+Sidecar Containers
+------------------'
+A sidecar container is a secondary container that runs alongside your main application container inside the exact same Kubernetes Pod.
+It is architected to help, enhance, or support the main application.
+restartPolicy: Always (This is the magic line introduced in modern Kubernetes (v1.29+). It tells Kubernetes, "Even though this is in the initContainers list, do not wait for it to exit. Keep it running forever alongside the main app.)
+
 

@@ -1,0 +1,778 @@
+Need to revise static pods.
+
+commands
+kubectl create cm webapp-config-map --from-literal=APP_COLOR=darkblue --from-literal=APP_OTHER=disregard
+kubectl create secret generic db-secret --from-literal=DB_Host=sql01 --from-literal=DB_User=root --from-literal=DB_Password=password123
+echo -n "password123" | base64
+(-n is to aviod new line character)
+Note : We no need to encode the values as we are creating secrets with imperative commands.
+
+kubectl autoscale deployment nginx-deployment --max=3 --cpu=80%
+Note : If HPA need to collect the metrics resource block need to be existed in deployment. If it doesn't exist hpa target shows unknown.
+
+Go through VPA
+
+kubectl cordon command make the node as unschedulable.
+kubectl drain command make the pods to be evicted from node.
+
+If node contains the pod which is not part of replicaset we need to forcefully drain the node like below.
+kubectl drain node01 --ignore-daemonsets --force
+
+Kubernetes cluster upgrades
+Master Node
+-> Kubeadm upgrade plan
+-> apt-get upgrade -y kubeadm=1.12.0-00
+-> kubeadm upgrade apply v1.12.0
+-> apt-get upgrade -y kubelet=1.12.0-00
+-> systemctl restart kubelet
+
+Worker Node
+-> kubectl drain node01
+-> apt-get upgrade -y kubeadm=1.12.0-00
+-> apt-get upgrade -y kubelet=1.12.0-00
+-> kubeadm upgrade node config --kubelet-version v1.12.0
+-> systemctl restart kubelet
+-> kubectl uncordon node01
+
+------------------------------------
+Procedure to follow cluster upgrades
+------------------------------------
+Update the packages to desired version mentioned in question in both master and worker nodes.
+(https://kubernetes.io/blog/2023/08/15/pkgs-k8s-io-introduction/)
+Commands for 1.35 version
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.35/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.35/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+sudo apt-get update
+
+Update kubeadm in master node
+sudo apt update
+sudo apt-cache madison kubeadm (Lists available kubeadm versions)(1)
+
+Update Controlplane
+sudo apt-mark unhold kubeadm
+sudo apt-get update && sudo apt-get install -y kubeadm='1.35.4-1.1'
+sudo apt-mark hold kubeadm
+
+Node : 1.35.4-1.1 will be listed in 1.
+
+kubeadm version
+sudo kubeadm upgrade plan
+sudo kubeadm upgrade apply v1.35.4
+
+Update kubelet on controlplane
+kubectl drain controlplane --ignore-daemonsets
+sudo apt-mark unhold kubelet kubectl
+sudo apt-get update && sudo apt-get install -y kubelet='1.35.4-1.1' kubectl='1.35.4-1.1'
+sudo apt-mark hold kubelet kubectl
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+kubectl uncordon controlplane
+
+Update Worker Nodes
+kubectl drain node01 --ignore-daemonsets
+
+Update kubeadm on worker node
+sudo apt-mark unhold kubeadm
+sudo apt-get update && sudo apt-get install -y kubeadm='1.35.4-1.1'
+sudo apt-mark hold kubeadm
+
+sudo kubeadm upgrade node01
+
+Update kubelet, kubectl(if exists)
+sudo apt-mark unhold kubelet kubectl
+sudo apt-get update && sudo apt-get install -y kubelet='1.35.4-1.1' kubectl='1.35.4-1.1'
+sudo apt-mark hold kubelet kubectl
+
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+
+kubectl uncordon node01
+------------------------------
+
+ssh-keygen -t rsa -b 4096
+
+Create a token for serviceaccount
+kubectl create token <service_account_name>
+or
+kubectl create token <service_account_name> --duration 2h
+
+image: docker.io/library/nginx
+docker.io -> registry
+library -> user/account
+nginx -> Image/Repository
+
+We cannot put capabilities at pod level but we need to put under container level.
+
+network policies
+ingress -> from
+egress -> to
+
+Sample network policy manifest file
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: internal-policy
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      name: internal
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          name: payroll
+    ports:
+    - port: 8080
+      protocol: TCP
+  - to:
+    - podSelector:
+        matchLabels:
+          name: mysql
+    ports:
+    - port: 3306
+      protocol: TCP
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: internal-policy
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      name: internal
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          name: payroll
+    - podSelector:
+        matchLabels:
+          name: mysql
+    ports:
+    - port: 8080
+      protocol: TCP
+    - port: 3306
+      protocol: TCP
+
+Use below command for encoding
+cat akshay.csr | base64 -w 0
+
+Deny certificate signing request csr with below command
+kubectl certificate deny agent-smith
+
+To switch the context of a kubeconfig file which is located in different location(Not default $HOME/.kube/config file)
+kubectl config --kubeconfig=/root/my-kube-config use-context research
+export KUBECONFIG=/root/my-kube-config
+
+Location of user related certs are stored.
+/etc/kubernetes/pki/users/dev-user
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-log
+spec:
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/pv/log"
+
+
+Co-located means
+
+containers:
+
+-name: abc
+
+// define container abc
+
+-name: pqrs
+
+// define container pqrs
+
+------------------------------------------------------------------
+
+But a side car will look like this
+
+containers:
+
+-name: abc
+
+// define container
+
+initContainers:
+
+-name: pqrs
+
+// define container
+
+restartPolicy: Always
+
+---------------------------------------------------------------
+
+ip a
+ip link
+To know mac address
+---------
+ip link show <interface name>
+eg: ip link show eth0
+
+ip addr show <interface_name>
+eg: ip addr show eth0
+
+Command to list ip addresses to interfaces
+ip addr
+
+Note:
+If we want to know the mac address of other nodes first we need to switch to that node.
+
+Route from which server can ping other websites like google.com
+ip route show default
+
+On which ports controlplane components are listening on.
+netstat -tunlp
+
+to check the pod ip range
+cat /etc/kubernetes/manifests/kube-controller-manager.yaml   | grep cluster-cidr
+
+to check service ip range
+cat /etc/kubernetes/manifests/kube-apiserver.yaml | grep service-cluster-ip-range
+
+Configuration file of CoreDns location
+/etc/codedns/CoreFile
+This file is passed as a configmap object to coredns pods.
+Other dns names like google.com can be rechable by the pods pods because of codens pods /etc/resolv.conf file points to nodes resolv.conf file.
+
+To know about default backend service
+kubectl get deploy ingress-nginx-controller -n ingress-nginx -o yaml
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-app-ingress
+  namespace: webapp
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+      - app.kodekloud.local
+    secretName: app-tls
+  rules:
+  - host: "app.kodekloud.local"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: web-app
+            port:
+              number: 80
+
+for https we create the secret and add tls block in ingress manifest file.
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test-ingress
+  namespace: critical-space
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /pay
+            pathType: Prefix
+            backend:
+              service:
+                name: pay-service
+                port:
+                  number: 8282
+
+helm pull -untar bitnami/wordpress
+
+helm rollback <release_name> <release_version>
+To upgrade release to specific version of chart.
+helm upgrade dazzling-web bitnami --version 18.3.6
+
+Note: Always use --help for helm commands if commands not known.
+
+kustomize build k8s/ | kubectl apply -f -
+kustomize build k8s/ | kubectl delete -f -
+or
+kubectl delete -k k8s/
+Note: -k represents kustomize
+
+apiVersion: kustomize.config.k8s.io.v1beta1
+kind: Kustomization
+
+Transformers
+------------
+commonLabels:
+  type: webapp
+
+namespace: dev
+
+namePrefix: deb-
+nameSuffix: -dev
+
+commonAnnotations:
+  type: webapp
+
+images:
+- name: nginx
+  newName: ha-proxy
+
+for tag only
+images:
+- name: nginx
+  newTag: 2.4
+
+we can combine both
+images:
+- name: nginx
+  newName: haproxy
+  newTag: 2.4
+
+patches:
+- target:
+    kind: Deployment
+    name: api-deployment
+  patch: |-
+  - op: replace/add/remove
+    path: /metadata/name
+    value: web-deployment
+
+Look into strategic merge path delete the container at the end of video 279.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  template:
+    spec:
+      containers:
+        - $patch: delete
+          name: memcached
+
+kubectl apply -k /root/code/k8s/
+
+patches:
+  - target:
+      kind: Deployment
+      name: mongo-deployment
+    patch: |-
+      - op: remove
+        path: /spec/template/metadata/labels/org
+ Note: Observe the space under patch. It is mandatory.
+
+kubectl expose deploy echo -n echo-sound --port=8080 --target-port=8080 --type=NodePort --name=echo-service
+
+Horizontal Pod Autoscaler Feature
+behavior:
+  scaleDown:
+    stabilizationWindowSeconds: 300
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example
+spec:
+  containers:
+  - name: app
+    image: nginx
+    securityContext:
+      capabilities:
+        add: ["NET_ADMIN"]
+        drop: ["ALL"]
+
+- --enable-admission-plugins=NodeRestriction,NamespaceAutoProvision
+- --disable-admission-plugins=DefaultStorageClass
+
+kubelet config file location
+/var/lib/kubelet/config.yaml
+
+check the cni plugin directory if the cni is installed or not. If it is installed it should display config file of CNI plugin.
+ls -la /etc/cni/net.d/
+
+config.conf is the configuration file of kube-proxy loaded from configmap as volume and volumemounts.
+
+
+Youtube Channels
+ITKiddie
+DumbItGuy
+JayDeme
+
+kubectl get deployments -n admin2406 -o custom-columns="DEPLOYMENT:.metadata.name, CONTAINER_IMAGE:.spec.template.spec.containers[*].image, READY_REPLICAS:.status.readyReplicas, NAMESPACE:.metadata.namespace" > /opt/admin2046_data
+
+export ETCDCTL_API=3
+etcdctl snapshot save --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --endpoints=127.0.0.1:2379 /opt/etcd-backup.db
+
+etcdctl snapshot save snapshot.db
+
+etcdctl snapshot save snapshot.db --endpoints=https://127.0.0.1:2379 --cacert=/etc/etcd/ca.crt --cert=/etc/etcd/etcd-server.crt --key=/etc/etcd/etcd-server.key
+etcdctl snapshot save --endpoints=http://127.0.0.1:2379 --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key /opt/snapshot-pre-boot.db
+
+etcdctl --endpoints=https://[127.0.0.1]:2379 \
+--cacert=/etc/kubernetes/pki/etcd/ca.crt \
+--cert=/etc/kubernetes/pki/etcd/server.crt \
+--key=/etc/kubernetes/pki/etcd/server.key \
+snapshot save /opt/snapshot-pre-boot.db
+
+
+etcdctl --endpoints=https://127.0.0.1:2379 --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key snapshot save /opt/snapshot-pre-boot.db
+
+
+Restoring from snapshot
+-----------------------
+etcdctl snapshot restore snapshot.db --data-dir=/var/lib/etcd-from-backup
+Update the etcd yaml file with this new data directory path.
+
+kustomize build k8s/  -> like dry-run
+kustomize build k8s/ | kubectl apply -f -     -> To apply the kustomize files.
+kubectl apply -k k8s/
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+
+
+-----------------------
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.35/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.35/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+1.35.5-1.1
+
+sudo apt-mark unhold kubeadm && \
+sudo apt-get update && sudo apt-get install -y kubeadm='1.35.5-1.1' && \
+sudo apt-mark hold kubeadm
+
+sudo apt-mark unhold kubelet kubectl && \
+sudo apt-get update && sudo apt-get install -y kubelet='1.35.5-1.1' kubectl='1.35.5-1.1' && \
+sudo apt-mark hold kubelet kubectl
+
+# logger-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logging-deployment
+  namespace: logging-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: logger
+  template:
+    metadata:
+      labels:
+        app: logger
+    spec:
+      volumes:
+        - name: log-volume
+          emptyDir: {}
+      initContainers:
+        - name: log-agent
+          image: busybox
+          command:
+            - sh
+            - -c
+            - "touch /var/log/app/app.log; tail -f /var/log/app/app.log"
+          volumeMounts:
+            - name: log-volume
+              mountPath: /var/log/app
+          restartPolicy: Always
+      containers:
+        - name: app-container
+          image: busybox
+          command:
+            - sh
+            - -c
+            - "while true; do echo 'Log entry' >> /var/log/app/app.log; sleep 5; done"
+          volumeMounts:
+            - name: log-volume
+              mountPath: /var/log/app
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+User Creation
+---
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+metadata:
+  name: john-developer
+spec:
+  signerName: kubernetes.io/kube-apiserver-client
+  request: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZEQ0NBVHdDQVFBd0R6RU5NQXNHQTFVRUF3d0VhbTlvYmpDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRApnZ0VQQURDQ0FRb0NnZ0VCQUt2Um1tQ0h2ZjBrTHNldlF3aWVKSzcrVVdRck04ZGtkdzkyYUJTdG1uUVNhMGFPCjV3c3cwbVZyNkNjcEJFRmVreHk5NUVydkgyTHhqQTNiSHVsTVVub2ZkUU9rbjYra1NNY2o3TzdWYlBld2k2OEIKa3JoM2prRFNuZGFvV1NPWXBKOFg1WUZ5c2ZvNUpxby82YU92czFGcEc3bm5SMG1JYWpySTlNVVFEdTVncGw4bgpjakY0TG4vQ3NEb3o3QXNadEgwcVpwc0dXYVpURTBKOWNrQmswZWhiV2tMeDJUK3pEYzlmaDVIMjZsSE4zbHM4CktiSlRuSnY3WDFsNndCeTN5WUFUSXRNclpUR28wZ2c1QS9uREZ4SXdHcXNlMTdLZDRaa1k3RDJIZ3R4UytkMEMKMTNBeHNVdzQyWVZ6ZzhkYXJzVGRMZzcxQ2NaanRxdS9YSmlyQmxVQ0F3RUFBYUFBTUEwR0NTcUdTSWIzRFFFQgpDd1VBQTRJQkFRQ1VKTnNMelBKczB2czlGTTVpUzJ0akMyaVYvdXptcmwxTGNUTStsbXpSODNsS09uL0NoMTZlClNLNHplRlFtbGF0c0hCOGZBU2ZhQnRaOUJ2UnVlMUZnbHk1b2VuTk5LaW9FMnc3TUx1a0oyODBWRWFxUjN2SSsKNzRiNnduNkhYclJsYVhaM25VMTFQVTlsT3RBSGxQeDNYVWpCVk5QaGhlUlBmR3p3TTRselZuQW5mNm96bEtxSgpvT3RORStlZ2FYWDdvc3BvZmdWZWVqc25Yd0RjZ05pSFFTbDgzSkljUCtjOVBHMDJtNyt0NmpJU3VoRllTVjZtCmlqblNucHBKZWhFUGxPMkFNcmJzU0VpaFB1N294Wm9iZDFtdWF4bWtVa0NoSzZLeGV0RjVEdWhRMi80NEMvSDIKOWk1bnpMMlRST3RndGRJZjAveUF5N05COHlOY3FPR0QKLS0tLS1FTkQgQ0VSVElGSUNBVEUgUkVRVUVTVC0tLS0tCg==
+  usages:
+  - digital signature
+  - key encipherment
+  - client auth
+
+  To approve this certificate, run: kubectl certificate approve john-developer
+  Next, create a role developer and rolebinding developer-role-binding, run the command:
+
+  kubectl create role developer --resource=pods --verb=create,list,get,update,delete --namespace=development
+  kubectl create rolebinding developer-role-binding --role=developer --user=john --namespace=development
+
+  To verify the permission from kubectl utility tool:
+  kubectl auth can-i update pods --as=john --namespace=development
+
+kubectl create clusterrolebinding pvviewer-role-binding --clusterrole=pvviewer-role --serviceaccount=default:pvviewer
+
+There will be kubeadm-configdeployed as a configmap to get kubeadm info.
+
+
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ingress-to-nptest
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      run: np-test-1
+  policyTypes:
+  - Ingress
+  ingress:
+  - ports:
+    - protocol: TCP
+      port: 80
+
+In above file Leaving the from: field empty under ingress means traffic is allowed from all sources.
+kubectl patch sc local-storage -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "true"}}}'
+
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: wildcard-tls-gateway
+spec:
+  gatewayClassName: example
+  listeners:
+  - name: foo-https
+    protocol: HTTPS
+    port: 443
+    hostname: foo.example.com
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: foo-example-com-cert
+
+sudo dpkg -i ./cri-dockerd.deb
+sudo systemctl enable cri-docker
+sudo systemctl start cri-docker
+
+Look into DumpITGuy question 9
+
+Check if the network plugin supports Networkpolicy using grep.
+
+kubectl create priorityclass high-priority --valur=999 --description="High Priority"
+
+Look into DumpITGuy question 9
+Look into DumpITGuy question 17
+Capabilities
+Commands and arguments
+
+Try to change the master node components(scheduler, controller manager) resources to 25m as part of debugging if you are unable to connect to cluster.
+
+grep -A 3 crds
+
+cpu: "2" (wrong) cpu: 2m(right)
+
+kubectl -n admin2406 get deployment -o custom-columns=DEPLOYMENT:.metadata.name,CONTAINER_IMAGE:.spec.template.spec.containers[].image,READY_REPLICAS:.status.readyReplicas,NAMESPACE:.metadata.namespace --sort-by=.metadata.name > /opt/admin2406_data
+
+export ETCDCTL_API=3
+etcdctl snapshot save --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --endpoints=127.0.0.1:2379 /opt/etcd-backup.db
+
+ETCD Snapshot Restore
+Move api server to another location like
+mv /etc/kubernetes/manifests/kube-api-server.yaml .
+etcdutl snapshot restore snapshot.db --data-dir=/var/lib/etcd-from-backup
+Update the etcd manifest file present at /etc/kubernetes/manifests/ directory with below
+Update command flag --data-dir value from /var/lib/etcd to /var/lib/etcd-from-backup
+Update etcd-data volume host path to /var/lib/etcd-from-backup
+Update mount path of etcd-data to /var/lib/etcd-from-backup
+Move back api server manifest file from current location to /etc/kubernetes/manifests/
+mv kube-api-server.yaml /etc/kubernetes/manifests/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

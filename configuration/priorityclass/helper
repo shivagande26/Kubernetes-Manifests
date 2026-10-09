@@ -1,0 +1,9 @@
+There are two default priority classes deployed to the cluster.
+1) system-cluster-critical - Used for essential cluster-wide services that are vital to the cluster's operation, such as CoreDNS and kube-proxy
+2) system-node-critical - The highest priority. Reserved for node-level components that must never be evicted, For eg: api-server.
+
+We can define our own priority levels using a YAML manifest. The custom value can be any 32-bit integer up to 1,000,000,000 (1 billion). Anything higher is strictly reserved for the system.
+
+preemptionPolicy: Defaults to PreemptLowerPriority. If changed to Never, the Pod will still be placed at the front of the scheduling queue but it will not evict lower-priority workloads to make room for itself. Instead, it will wait until resources naturally clear up.
+
+globalDefault: If set to true, any Pod created without a specific priorityClassName will automatically receive this priority level. Only one PriorityClass in the cluster can have this set to true. If none are set to true, unassigned Pods default to 0.

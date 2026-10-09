@@ -1,0 +1,78 @@
+# Kubernetes Resource Requests and Limits
+
+This file explains how `requests` and `limits` work for containers in Kubernetes.
+It is written in simple English so students can understand the meaning and purpose.
+
+## What are resource requests?
+
+- `requests` are the minimum resources a container asks the cluster to reserve for it.
+- They tell Kubernetes: "I need at least this much CPU and memory to run properly." 
+- The scheduler uses `requests` to decide which node can fit the pod.
+
+Example:
+```yaml
+resources:
+  requests:
+    cpu: 100m
+    memory: "500Mi"
+```
+This means:
+- reserve 0.1 CPU for the container
+- reserve 500 MiB of memory for the container
+
+## What are resource limits?
+
+- `limits` are the maximum resources a container is allowed to use.
+- They tell Kubernetes: "Do not let me go above this amount of CPU or memory."
+- If a container uses more memory than its limit, Kubernetes can terminate it.
+- CPU limits prevent the container from using more than its allowed share.
+
+Example:
+```yaml
+resources:
+  limits:
+    cpu: 100m
+    memory: "200Mi"
+```
+This means:
+- the container cannot use more than 0.1 CPU
+- the container cannot use more than 200 MiB of memory
+
+## Why use both together?
+
+Using both `requests` and `limits` is a good practice:
+
+- `requests` give a guaranteed minimum.
+- `limits` set a hard maximum.
+
+This means the container has enough resources to start and run, but it also cannot take too much and hurt other workloads.
+
+Example:
+```yaml
+resources:
+  requests:
+    cpu: 100m
+    memory: "500Mi"
+  limits:
+    cpu: 100m
+    memory: "500Mi"
+```
+This is a balanced setup: the container gets a guaranteed reservation and is capped at the same amount.
+
+## Student-friendly analogy
+
+- `requests` = "save a seat for me"
+- `limits` = "don't let me take more than this"
+
+A container with:
+- only `requests`: has a reserved seat, but can sometimes use more if the node has spare capacity.
+- only `limits`: has a cap, but no guaranteed reservation.
+- both `requests` and `limits`: has a guaranteed reservation and a maximum allowed amount.
+
+## Notes
+
+- `100m` CPU means 0.1 CPU.
+- `500Mi` memory means 500 mebibytes.
+- Use requests to help scheduling and stability.
+- Use limits to prevent runaway processes and protect the node.
+

@@ -9,5 +9,5 @@ spec:
     - ReadOnlyMany
   nfs:
     path: /
-    server: fs-0d621d9d959d8f191.efs.us-east-1.amazonaws.com
+    server: fs-02e750a1e73eb1017.efs.us-east-1.amazonaws.com
   persistentVolumeReclaimPolicy: Retain

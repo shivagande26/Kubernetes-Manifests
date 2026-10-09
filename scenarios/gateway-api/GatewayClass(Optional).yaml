@@ -1,0 +1,76 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  annotations:
+    meta.helm.sh/release-name: ngf
+    meta.helm.sh/release-namespace: nginx-gateway
+  creationTimestamp: "2026-05-04T09:22:01Z"
+  generation: 1
+  labels:
+    app.kubernetes.io/instance: ngf
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: nginx-gateway-fabric
+    app.kubernetes.io/version: 2.5.1
+    helm.sh/chart: nginx-gateway-fabric-2.5.1
+  name: nginx
+  resourceVersion: "5800"
+  uid: dc4841a4-85d2-4a0d-9c86-563909913bfe
+spec:
+  controllerName: gateway.nginx.org/nginx-gateway-controller
+  parametersRef:
+    group: gateway.nginx.org
+    kind: NginxProxy
+    name: ngf-proxy-config
+    namespace: nginx-gateway
+status:
+  conditions:
+    - lastTransitionTime: "2026-05-04T09:22:02Z"
+      message: The GatewayClass is accepted
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2026-05-04T09:22:02Z"
+      message: The Gateway API CRD versions are supported
+      observedGeneration: 1
+      reason: SupportedVersion
+      status: "True"
+      type: SupportedVersion
+    - lastTransitionTime: "2026-05-04T09:22:02Z"
+      message: The ParametersRef resource is resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+  supportedFeatures:
+    - name: BackendTLSPolicy
+    - name: GRPCRoute
+    - name: Gateway
+    - name: GatewayAddressEmpty
+    - name: GatewayBackendClientCertificate
+    - name: GatewayHTTPListenerIsolation
+    - name: GatewayHTTPSListenerDetectMisdirectedRequests
+    - name: GatewayInfrastructurePropagation
+    - name: GatewayPort8080
+    - name: GatewayStaticAddresses
+    - name: HTTPRoute
+    - name: HTTPRoute303RedirectStatusCode
+    - name: HTTPRoute307RedirectStatusCode
+    - name: HTTPRoute308RedirectStatusCode
+    - name: HTTPRouteBackendProtocolWebSocket
+    - name: HTTPRouteCORS
+    - name: HTTPRouteDestinationPortMatching
+    - name: HTTPRouteHostRewrite
+    - name: HTTPRouteMethodMatching
+    - name: HTTPRouteParentRefPort
+    - name: HTTPRoutePathRedirect
+    - name: HTTPRoutePathRewrite
+    - name: HTTPRoutePortRedirect
+    - name: HTTPRouteQueryParamMatching
+    - name: HTTPRouteRequestMirror
+    - name: HTTPRouteRequestMultipleMirrors
+    - name: HTTPRouteRequestPercentageMirror
+    - name: HTTPRouteResponseHeaderModification
+    - name: HTTPRouteSchemeRedirect
+    - name: ReferenceGrant
+    - name: TLSRoute

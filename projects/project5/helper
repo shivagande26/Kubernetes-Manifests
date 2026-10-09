@@ -1,3 +1,31 @@
 kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl apply -n argocd --server-side --force-conflicts -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+https://github.com/argoproj/argo-cd/blob/master/manifests/install.yaml
 kubectl port-forward svc/argocd-server -n argocd 8080:443
+
+kubectl delete -n argocd --server-side --force-conflicts -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+Deploy ArgoCD using below url
+-----------------------------
+kubectl apply -n argocd --server-side -f argocd.yaml
+
+problem:
+When you run a default kubectl apply, Kubernetes tries to store a full backup copy of the manifest inside a hidden annotation field called kubectl.kubernetes.io/last-applied-configuration. Because this specific CRD exceeds the maximum Kubernetes annotation limit of 256 KB (262,144 bytes), the Kubernetes API rejects
+
+Login to argocd
+---------------
+argocd login <argocd_url> --username <username> --password <password>
+argocd login localhost:8080 --username admin --password Rop-qszxftoG9aBl
+
+Adding cluster to argocd
+------------------------
+argocd cluster add <cluster_context> --name <cluster_name>
+argocd cluster add cloud_user@uat-test.us-east-1.eksctl.io --name uat-test
+
+To list clusters of argocd
+--------------------------
+argocd cluster list
+
+In Kubernetes and GitOps, prune means "delete any resource in the live cluster that no longer exists in your Git repository."

@@ -13,12 +13,12 @@ spec:
     spec:
       containers:
         - name: datastore-backend
-          image: 095706880412.dkr.ecr.us-east-1.amazonaws.com/datastore-backend-app:v35.0
+          image: 8072388539/datastore-be-new:v2
           env:
             - name: MYSQL_HOST
-              value: jdbc:mysql://datastore.cdylzzu6vrk0.us-east-1.rds.amazonaws.com:3306/datastore?createDatabaseIfNotExist=true
+              value: jdbc:mysql://database-1.ckn8ua44i6hk.us-east-1.rds.amazonaws.com:3306/datastore?createDatabaseIfNotExist=true
             - name: MYSQL_USERNAME
-              value: admin
+              value: root
             - name: MYSQL_PASSWORD
               value: shivakumar
   replicas: 1
@@ -31,7 +31,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: datastore-backend-svc
+  name: datastore-be-svc
 spec:
   ports:
     - port: 8081

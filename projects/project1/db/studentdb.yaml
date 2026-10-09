@@ -2,9 +2,10 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongodb
+  namespace: database
 spec:
   serviceName: mongodb
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       role: mongo
@@ -18,6 +19,10 @@ spec:
       containers:
         - name: mongodb
           image: mongo
+          resources:
+            limits:
+              cpu: 500m
+              memory: "500Mi"
           #if the liveness probe fails kubernetes restarts pod.
           livenessProbe:
             exec:
@@ -59,27 +64,11 @@ spec:
                   key: mongodb-root-uname
             - name: MONGO_INITDB_ROOT_PASSWORD
               value: test123
-          command:
-            - mongod
-            - "--bind_ip_all"
-            - "--replSet"
-            - rs0
-            # - "--smallfiles"
-            # - "--noprealloc"
           ports:
             - containerPort: 27017
           volumeMounts:
             - name: mongodb-data
               mountPath: /data/db
-        # - name: mongo-sidecar
-        #   image: cvallance/mongo-k8s-sidecar
-        #   env:
-        #     - name: MONGO_SIDECAR_POD_LABELS
-        #       value: "role=mongo,environment=test"
-        #     - name: MONGODB_USERNAME
-        #       value: admin
-        #     - name: MONGODB_PASSWORD
-        #       value: test123
   volumeClaimTemplates:
     - metadata:
         name: mongodb-data

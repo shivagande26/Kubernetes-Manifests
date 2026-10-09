@@ -1,0 +1,11 @@
+server:
+  persistentVolume:
+    enabled: true
+    storageClass: monitor-ebs-storage
+    size: 8Gi
+
+alertmanager:
+  persistence:
+    enabled: true
+    storageClass: monitor-ebs-storage
+    size: 2Gi

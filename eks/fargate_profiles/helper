@@ -1,0 +1,52 @@
+Step -1
+- Create Amazon EKS pod execution role(IAM Role) here created with name AmazonEKSFargatePodExecutionRole.
+- After selecting the EKS service, Under use case select "EKS - Fargate pod".
+- Attach AmazonEKSFargatePodExecutionRolePolicy policy to the role if not automatically attached.
+(When your cluster creates Pods on AWS Fargate infrastructure, the components running on the Fargate infrastructure must make calls to AWS APIs on your behalf. This is so that they can do actions such as pull container images from Amazon ECR or route logs to other AWS services. The Amazon EKS Pod execution role provides the IAM permissions to do this.)
+
+Step -2(Optional)
+Update the trust relationship of the role to only allow EKS cluster to assume the role.
+'''
+{
+  "Version":"2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Condition": {
+         "ArnLike": {
+            "aws:SourceArn": "arn:aws:eks:us-east-1:111122223333:fargateprofile/my-cluster/*"
+         }
+      },
+      "Principal": {
+        "Service": "eks-fargate-pods.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+'''
+
+Step -3
+Create a fargate profile from the console.
+While creating the fargate profile it will ask us for namespace name and the pod labels, Lets say we give namespace name as development and labels as type=webapp, The pods created in development namespace and type=webapp only will be deployed on EKS fargate.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

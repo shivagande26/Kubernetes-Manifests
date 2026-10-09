@@ -1,3 +1,4 @@
+# If the readiness probe fails, The pods will not be marked as ready and service will not send the traffic to the pods which are failing with readiness probe.
 apiVersion: apps/v1
 kind: Deployment
 metadata:

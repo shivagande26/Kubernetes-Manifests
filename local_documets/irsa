@@ -1,0 +1,143 @@
+# IAM Roles for Service Accounts (IRSA)
+
+This document explains AWS IAM Roles for Service Accounts (IRSA) in Kubernetes.
+
+## What is IRSA?
+
+IRSA stands for IAM Roles for Service Accounts.
+It is an AWS feature that allows Kubernetes pods to use AWS IAM permissions without using long-lived AWS keys.
+
+In IRSA:
+- a Kubernetes Service Account is linked to an AWS IAM role
+- pods that use that service account can assume the IAM role
+- the IAM role defines what AWS actions the pod is allowed to perform
+
+## Why use IRSA?
+
+- No AWS secret keys inside pods or node instances.
+- Better security because IAM permissions are scoped to a pod's service account.
+- Easier to manage and audit permissions.
+- Works well with EKS and any Kubernetes cluster running on AWS.
+
+## Key components
+
+1. AWS IAM role
+   - Defines AWS permissions using policies.
+   - Trusts the EKS cluster OIDC provider.
+
+2. OIDC provider
+   - The EKS cluster exposes an OIDC identity provider.
+   - AWS uses this provider to verify pod identity.
+
+3. Kubernetes service account
+   - Annotated with the IAM role ARN.
+   - Used by one or more pods.
+
+4. Pod
+   - Uses the annotated service account.
+   - Can access AWS resources with the permissions granted to the IAM role.
+
+## How IRSA works
+
+1. Create or enable the OIDC provider for your EKS cluster.
+2. Create an IAM role with a trust policy that allows the cluster's OIDC provider and a specific Kubernetes service account.
+3. Annotate a Kubernetes service account with the IAM role ARN.
+4. Deploy pods that use that service account.
+5. The pod automatically receives short-lived AWS credentials from AWS STS.
+
+## Example trust policy for IRSA
+
+This trust policy allows the service account `myapp` in the `default` namespace to assume the IAM role.
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::123456789012:oidc-provider/oidc.eks.us-west-2.amazonaws.com/id/EXAMPLED539D4633E53DE1B716D3041E"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "oidc.eks.us-west-2.amazonaws.com/id/EXAMPLED539D4633E53DE1B716D3041E:sub": "system:serviceaccount:default:myapp"
+        }
+      }
+    }
+  ]
+}
+```
+
+## Example AWS IAM policy
+
+This policy gives read-only access to an S3 bucket.
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::my-bucket",
+        "arn:aws:s3:::my-bucket/*"
+      ]
+    }
+  ]
+}
+```
+
+## Example Kubernetes service account
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: myapp
+  namespace: default
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::123456789012:role/myapp-role
+```
+
+## Example pod using the service account
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  namespace: default
+spec:
+  serviceAccountName: myapp
+  containers:
+  - name: app
+    image: amazonlinux
+    command: ["/bin/sh", "-c", "sleep 3600"]
+```
+
+## Important notes
+
+- IRSA works only when the cluster OIDC provider is configured in AWS.
+- The service account annotation must match the IAM role ARN.
+- The IAM role trust policy must include the service account subject.
+- Pods get temporary AWS credentials automatically; no manual AWS key management is needed.
+
+## Common IRSA steps summary
+
+1. Enable or create OIDC provider for the EKS cluster.
+2. Create the IAM role with the correct trust policy.
+3. Attach required IAM policies to the role.
+4. Create a Kubernetes service account annotated with the IAM role ARN.
+5. Run pods using that service account.
+
+## Benefits for students
+
+- Safer AWS access from Kubernetes.
+- Fewer secrets to manage.
+- Better control over pod-level permissions.
+- Good practice for real-world EKS deployments.

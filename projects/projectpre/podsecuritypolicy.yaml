@@ -1,0 +1,11 @@
+apiVersion: vpcresources.k8s.aws/v1beta1
+kind: SecurityGroupPolicy
+metadata:
+  name: backend-pod-sg
+spec:
+  podSelector:
+    matchLabels:
+      type: backend
+  securityGroups:
+    groupIds:
+      - sg-01315fe20310224f9

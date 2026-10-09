@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: production-api
+spec:
+  containers:
+    - name: web-app
+      image: nginx
+  priorityClassName: high-priority-apps

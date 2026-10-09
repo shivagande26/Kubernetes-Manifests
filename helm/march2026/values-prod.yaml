@@ -1,0 +1,4 @@
+deploy:
+  nginxDeploy:
+    imageTag: stable-perl
+    replicaCount: 10

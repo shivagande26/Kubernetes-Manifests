@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomome
+  labels:
+    tier: tom
+{{- include "deploy.labels" . | indent 4 }}
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: tom
+    spec:
+      containers:
+        - name: mywebapp
+          {{- with .Values.deploy.tomcatDeploy }}
+          image: tomcat:{{ .imgTag }}
+  replicas: {{ .replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      type: tom

@@ -1,0 +1,4 @@
+apiVersion: v2
+name: app-deploy
+description: "Deploys chart"
+version: 1.0.0

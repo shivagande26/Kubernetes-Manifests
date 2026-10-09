@@ -1,0 +1,9 @@
+Step 1: Change the Cluster Authentication Mode
+(This tells how the access should be given to users, Through access entries or both(access entries & aws-auth configmap))
+- Click cluster > Access tab > Under Cluster authentication mode, click Manage access > Change access if required.
+
+Step 2: Create the Access Entry
+- Click create > Select IAM principal ARN > Select type as standard > Expand "Additional optional configuration" > Select group > Next > Associate policies if needed > Create
+
+Policy & their permissions - https://docs.aws.amazon.com/eks/latest/userguide/access-policy-permissions.html
+Note : If policy is giving full permissions and RBAC is giving limited permissions, All the permissions will be given to principal.

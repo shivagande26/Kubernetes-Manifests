@@ -1,0 +1,23 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: private-node-cluster
+  region: us-east-1
+  version: "1.33"
+
+vpc:
+  nat:
+    gateway: HighlyAvailable
+
+managedNodeGroups:
+  - name: private-nodes
+    instanceType: t2.medium
+    desiredCapacity: 2
+    minSize: 1
+    maxSize: 3
+    privateNetworking: true
+
+    ssh:
+      allow: true
+      publicKeyName: jdka_one

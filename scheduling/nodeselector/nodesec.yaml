@@ -15,7 +15,7 @@ spec:
         - name: mywebapp
           image: nginx:latest
       nodeSelector:
-        type: backend
+        type: app
   replicas: 10
   selector:
     matchLabels:

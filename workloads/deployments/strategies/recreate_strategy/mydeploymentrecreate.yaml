@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp
+  name: myapp-recreate
   labels:
     type: webapp
 spec:
@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: mywebapp
-          image: nginx:stable-alpine
+          image: nginx
   replicas: 10
   selector:
     matchLabels:

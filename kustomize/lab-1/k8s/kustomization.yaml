@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - doctor/
+  - gym/
+
+# ------------------------------
+# Transformers
+# ------------------------------
+commonLabels:
+  org: mars
+
+commonAnnotations:
+  branch: master
+
+namePrefix: mars-
+nameSuffix: -apps
+
+images:
+  - name: 8072388539/doctorapp
+    newName: nginx
+    newTag: latest

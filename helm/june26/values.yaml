@@ -1,0 +1,19 @@
+deploy:
+  webappDeploy:
+    imgTag: latest
+    replicaCount: 10
+  tomcatDeploy:
+    imgTag: latest
+    replicaCount: 5
+
+hpa:
+  deploy: true
+  minCount: 1
+  maxCount: 10
+  targetCPUUtil: 1
+
+dbconfig:
+  mysqluname: admin
+  mysqlendpoint: test
+  mysqltoken: token
+  color: blue

@@ -1,0 +1,1 @@
+aws ec2 describe-instance-types --instance-types t2.large --query "InstanceTypes[0].NetworkInfo"

@@ -1,11 +1,11 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: student-ingress
+  name: test-ingress
   labels:
-    name: student-ingress
+    name: test-ingress
 #  annotations:
-#    nginx.ingress.kubernetes.io/whitelist-source-range: "45.112.185.95/32"
+#    nginx.ingress.kubernetes.io/whitelist-source-range: "45.112.185.214/32"
 spec:
   ingressClassName: nginx
   rules:
@@ -22,6 +22,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: mysv-lb
+                name: mysv-cip
                 port:
                   number: 8081

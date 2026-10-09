@@ -1,0 +1,22 @@
+{{-  with .Values.deploy.nginxDeploy }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapptom
+  labels:
+{{- include "app.labels" . | indent 4 }}
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: webapp-tom
+    spec:
+      containers:
+        - name: mywebapp
+          image: tomcat:{{ .imageTag }}
+  replicas: {{ .replicaCount }}
+  selector:
+    matchLabels:
+      type: webapp-tom
+  {{- end }}

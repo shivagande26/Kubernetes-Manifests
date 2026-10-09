@@ -1,0 +1,7 @@
+eksctl create fargateprofile --cluster uat-dev --name fp-backend --namespace backend --labels tier=api
+
+aws eks list-fargate-profiles --cluster-name uat-dev
+
+aws eks describe-fargate-profile --cluster-name uat-dev --fargate-profile-name fp-default
+
+kubectl create deployment my-app --image=nginx --labels=tier=api --namespace backend --replicas=10

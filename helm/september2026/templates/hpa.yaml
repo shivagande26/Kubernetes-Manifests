@@ -1,0 +1,16 @@
+{{- if .Values.apps.hpa.deploy }}
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: myapp
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: myappone-{{ .Release.Name }}
+  {{- with .Values.apps.hpa.webapp }}
+  minReplicas: {{ .minReplicaCount }}
+  maxReplicas: {{ .maxReplicaCount }}
+  targetCPUUtilizationPercentage: {{ .targetCPUUtil }}
+  {{- end }}
+{{- end }}

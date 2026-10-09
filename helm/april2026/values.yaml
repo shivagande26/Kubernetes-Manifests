@@ -1,0 +1,16 @@
+webapp:
+  nginxDeploy:
+    replicaCount: 8
+    imgTag: latest
+  tomcatDeploy:
+    replicaCount: 8
+    imgTag: latest
+
+env: dev
+roledeploy: false
+
+dbconfig:
+  mysqluname: admin
+  mysqlendpoint: test
+  mysqltoken: token
+  color: blue

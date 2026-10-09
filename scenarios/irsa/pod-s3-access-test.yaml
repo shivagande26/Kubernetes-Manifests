@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: awscli-2
+spec:
+  containers:
+    - name: awscli
+      image: amazon/aws-cli:latest
+      command:
+        - sleep
+        - "3600"

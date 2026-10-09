@@ -1,9 +1,21 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: webapp
+  name: myappone
+  labels:
+    type: webapp
 spec:
-  containers:
-    - name: app
-      image: nginx
-  nodeName: node01
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: webapp
+    spec:
+      nodeName: ip-192-168-10-25.ec2.internal
+      containers:
+        - name: mywebapp
+          image: nginx
+  replicas: 10
+  selector:
+    matchLabels:
+      type: webapp

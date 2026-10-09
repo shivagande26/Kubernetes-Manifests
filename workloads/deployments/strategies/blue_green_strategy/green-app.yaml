@@ -14,7 +14,7 @@ spec:
       containers:
         - name: mywebapp
           image: nginx:stable-perl #v2
-  replicas: 15
+  replicas: 10
   selector:
     matchLabels:
       type: newwebapp

@@ -24,7 +24,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysv-lb
+  name: mysv-cip
 spec:
   type: ClusterIP
   ports:

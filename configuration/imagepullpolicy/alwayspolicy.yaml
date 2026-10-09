@@ -1,23 +1,22 @@
-apiVersion: v1
-kind: Pod
-metadata:
-  name: student-app
-spec:
-#  imagePullSecrets:
-#    - name: dockerhubsecret
-  containers:
-    - name: student-app
-      image: nginx
-      ports:
-        - containerPort: 80
-      imagePullPolicy: Always
+#apiVersion: v1
+#kind: Pod
+#metadata:
+#  name: mobile-app
+#spec:
+#  containers:
+#    - name: mobile-app
+#      image: nginx
+#      ports:
+#        - containerPort: 80
+#      imagePullPolicy: Always
 
----
+#---
 
 apiVersion: v1
 kind: Pod
 metadata:
   name: webapp
+  namespace: test
 spec:
   containers:
     - name: app

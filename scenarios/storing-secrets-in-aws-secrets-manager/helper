@@ -41,7 +41,7 @@ POLICY_ARN=$(aws iam create-policy \
 eksctl utils associate-iam-oidc-provider --region=us-east-1 --cluster=uat-dev --approve
 
 - Create a service account used by the pod and associate a IAM policy with that service account.
-eksctl create iamserviceaccount --name mysql-creds-sa --region=us-east-1 --cluster uat-dev --attach-policy-arn arn:aws:iam::095706880412:policy/secret-manager-access --approve --override-existing-serviceaccounts
+eksctl create iamserviceaccount --name mysql-creds-sa --region=us-east-1 --cluster uat-test --attach-policy-arn arn:aws:iam::989367328179:policy/secret-manager-access --approve --override-existing-serviceaccounts
 
 - Install secret provider class.
 kubectl apply -f secretProvider.yaml
@@ -60,3 +60,10 @@ helm list -n kube-system helm upgrade csi-secrets-store secrets-store-csi-driver
 - Installing ps in mysql container as it is using Oracle os.
 yum install -y procps-ng
 Kill the process kill 1
+
+Note:
+helm upgrade csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver \
+  --namespace kube-system \
+  --reuse-values \
+  --set 'tokenRequests[0].audience=sts.amazonaws.com' \
+  --set 'tokenRequests[1].audience=pods.eks.amazonaws.com'

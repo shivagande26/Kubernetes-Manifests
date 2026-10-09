@@ -1,0 +1,20 @@
+Lets assume we have 3 nodes in the cluster with t2.medium type of machines. With this assumption below are the points to be noted.
+- t2.medium type of machine is only allowed to attach maximum of 3 ENI(Elastic Network Interface).
+- Each ENI is only allowed to have only 6 IPV4 secondary addresses.
+- So each node will be allowed to have 18 IPV4 addresses.
+- For 3 node cluster we are going to get 54 IPV4 addresses.
+- VPC CNI network plugin will take the ip address from these 54 ip addresses and will allocate to pod.
+- So, In this cluster we can create 54 pods only.
+Note : Use the below command to check which type of machine is allowed with what number of network interfaces and the secondary ip's.
+aws ec2 describe-instance-types --instance-types t2.medium --query "InstanceTypes[0].NetworkInfo"
+
+In the above command output check.
+MaximumNetworkInterfaces (tells maximum number of network interfaces are allowed to be attached to t2.medium machine)
+Ipv4AddressesPerInterface (tells maximum number of secondary&primary ipv4 addresses are allowed to t2.medium machine)
+
+However, this is only the theoretical AWS networking limit. In EKS, not all of these addresses are available for application pods because:
+- some IPs are used by the node itself
+- kube-proxy and aws-node consume IPs
+- kube-system pods consume IPs
+- subnet IP capacity is also limited
+- features like SecurityGroupPolicy increase ENI/IP demand

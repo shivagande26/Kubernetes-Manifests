@@ -1,0 +1,21 @@
+env: dev
+
+deploy:
+  nginxDeploy:
+    imageTag: latest
+    replicaCount: 4
+  tomcatDeploy:
+    imageTag: latest
+    replicaCount: 5
+
+hpa:
+  minCount: 1
+  maxCount: 10
+  targetCPUUtil: 1
+  deploy: false
+
+dbconfig:
+  mysqluname: admin
+  mysqlendpoint: test
+  mysqltoken: token
+  color: blue

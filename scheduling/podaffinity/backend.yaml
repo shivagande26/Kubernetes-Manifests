@@ -29,3 +29,18 @@ spec:
                     values:
                       - webapp
               topologyKey: kubernetes.io/hostname
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,3 @@
+To get all objects with label env=prod
+kubectl get all --selector env=prod
+

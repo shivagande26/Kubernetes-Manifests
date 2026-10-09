@@ -1,0 +1,4 @@
+apiVersion: v2
+name: webapp
+description: "Chart that deploys application."
+version: 0.0.2

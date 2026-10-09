@@ -27,3 +27,20 @@ kubectl scale deployment/<deployment_name> --replicas=<replica_number>
 
 To know the detailed info about kubernetes revision.
 kubectl rollout history deployment/<deployment_name> --revision=<revision_one>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

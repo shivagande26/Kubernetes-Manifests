@@ -5,7 +5,7 @@ metadata:
   namespace: kube-system
 data:
   mapUsers: |
-    - userarn: arn:aws:iam::095706880412:user/developer
-      username: developer
+    - userarn: arn:aws:iam::161242379999:user/jack
+      username: jack
       groups:
       - developer

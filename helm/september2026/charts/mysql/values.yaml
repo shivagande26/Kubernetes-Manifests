@@ -1,0 +1,3 @@
+db:
+  imgVersion: v1
+  replicaCount: 3

@@ -6,14 +6,14 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: mysql
+      type: backend
   policyTypes:
     - Ingress
   ingress:
     - from:
         - podSelector:
             matchLabels:
-              type: backend
+              type: app
       ports:
         - protocol: TCP
-          port: 3306
+          port: 8081

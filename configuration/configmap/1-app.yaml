@@ -16,7 +16,5 @@ data:
     socket=/var/run/mysqld/mysqld.sock
     socket=/var/run/mysqld/mysqld.sock
     !includedir /etc/mysql/conf.d/
-    
-
   ym.cnf: |
     test

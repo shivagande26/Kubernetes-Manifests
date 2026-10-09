@@ -1,0 +1,7 @@
+webapp:
+  nginxDeploy:
+    replicaCount: 20
+    imgTag: trixie
+  tomcatDeploy:
+    replicaCount: 10
+    imgTag: jre21-temurin

@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: myappone
+  namespace: development
   labels:
-    type: webapp
+    tier: api
 spec:
   template:
     metadata:
@@ -13,8 +14,8 @@ spec:
     spec:
       containers:
         - name: mywebapp
-          image: nginx:1.28.1-alpine3.23
-  replicas: 100
+          image: nginx
+  replicas: 10
   selector:
     matchLabels:
       type: webapp

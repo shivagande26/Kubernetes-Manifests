@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: memory-observer
+  labels:
+    app: memory-test
+spec:
+  containers:
+  - name: memory-container
+    image: python:3.9-slim
+    command: ["python", "-c"]
+    args:
+      - |
+        import time
+
+        data = []
+        max_mb = 800  # target memory usage (MB)
+
+        while True:
+            if len(data) < max_mb:
+                data.append(' ' * 10**6)  # allocate 1MB
+                print(f"Allocated: {len(data)} MB")
+            else:
+                print("Reached target memory usage, holding...")
+            time.sleep(0.2)
+
+    resources:
+      requests:
+        memory: "500Mi"
+        cpu: "100m"
+      limits:
+        memory: "1Gi"
+        cpu: "200m"
+

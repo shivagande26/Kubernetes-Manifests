@@ -50,6 +50,8 @@ helm lint mychart
 helm package custom/
 helm list
 helm install --generate-name --dry-run mychart/charts/mysubchart
+helm search hub wordpress -> search repo in artifact hub.
+helm search repo wordpress -> search repo in local added repositories.
 
 {{ .Release.Name }}
 {{ .Release.Namespace }}

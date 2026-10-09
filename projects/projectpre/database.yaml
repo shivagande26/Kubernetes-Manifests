@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: datstore-db
+  name: datstore-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: datstore-db
+  template:
+    metadata:
+      labels:
+        app: datstore-db
+    spec:
+      containers:
+        - image: mysql
+          name: mysql
+          env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: test123

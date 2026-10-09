@@ -28,10 +28,11 @@ kind: Service
 metadata:
   name: multiport-svc
 spec:
+  type: NodePort
   selector:
     type: app
   ports:
-    - name: nging-port
+    - name: nginx-port
       port: 80
       protocol: TCP
       targetPort: 80

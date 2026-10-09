@@ -14,7 +14,7 @@ spec:
       containers:
         - name: mywebapp
           image: nginx:latest #v1
-  replicas: 0
+  replicas: 10
   selector:
     matchLabels:
       type: webapp

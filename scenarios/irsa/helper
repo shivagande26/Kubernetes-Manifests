@@ -12,8 +12,8 @@ Step - 3 : Create an IAM role for your Kubernetes service account.
   > eksctl create iamserviceaccount \
     --name s3-reader \
     --namespace default \
-    --cluster uat-dev \
-    --attach-policy-arn arn:aws:iam::095706880412:policy/s3-read-access-policy-new \
+    --cluster uat-test \
+    --attach-policy-arn arn:aws:iam::989367328179:policy/s3-read-access-policy-new \
     --approve \
     --override-existing-serviceaccounts
 

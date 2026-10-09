@@ -14,6 +14,7 @@ spec:
       labels:
         app: database
     spec:
+      nodeName: ip-192-168-2-205.ec2.internal
       containers:
         - image: mongo
           name: mongotest

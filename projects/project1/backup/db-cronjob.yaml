@@ -40,6 +40,6 @@ spec:
               # persistentVolumeClaim:
               #   claimName: mongodump
               hostPath:
-                path: /data/unique/
+                path: /data/
                 type: Directory
           restartPolicy: Never

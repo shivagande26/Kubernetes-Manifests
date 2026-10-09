@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp
+  name: webapp-one
 spec:
-  replicas: 20
+  replicas: 10
   selector:
     matchLabels:
       app: webapp

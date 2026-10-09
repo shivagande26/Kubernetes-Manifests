@@ -30,3 +30,17 @@ spec:
                       - webapp
                       - app
               topologyKey: kubernetes.io/hostname
+
+
+
+
+
+
+
+
+
+
+
+
+
+

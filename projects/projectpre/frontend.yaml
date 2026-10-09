@@ -13,10 +13,10 @@ spec:
     spec:
       containers:
         - name: mywebapp
-          image: 095706880412.dkr.ecr.us-east-1.amazonaws.com/datastore-frontend-app:v35.0
+          image: 8072388539/datastore-fe-new:v2
           env:
             - name: API_URL
-              value: http://datastore-backend-svc.default.svc.cluster.local:8081
+              value: http://datastore-be-svc:8081
   replicas: 3
   selector:
     matchLabels:
@@ -27,7 +27,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: datastore-frontend-svc
+  name: datastore-fe-svc
 spec:
   type: LoadBalancer
   ports:

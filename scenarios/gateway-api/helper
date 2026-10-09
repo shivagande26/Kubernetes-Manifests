@@ -1,0 +1,17 @@
+Install CRD's
+-------------
+kubectl apply --server-side -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.5.0/standard-install.yaml
+
+Install Nginx Fabric Gateway Controller
+---------------------------------------
+helm install ngf oci://ghcr.io/nginx/charts/nginx-gateway-fabric --create-namespace -n nginx-gateway
+
+Note: When we create Gateway resource, Nginc gateway controller detects that and creates svc and deployment which is useful for routing traffic according to HTTPRoute resource.
+
+Port forward to the newly created svc and send curl request with Host header from killerkoda.
+
+curl --verbose --header "Host: www.example.com" http://localhost:9595
+
+Youtube Channels
+ITKiddie
+DumbItGuy

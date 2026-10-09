@@ -19,7 +19,7 @@ spec:
           resources:
             requests:
               cpu: "100m"
-  replicas: 10
+  replicas: 1
   selector:
     matchLabels:
       type: webapp

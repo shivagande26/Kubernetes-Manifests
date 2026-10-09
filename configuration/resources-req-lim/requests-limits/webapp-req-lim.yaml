@@ -4,9 +4,8 @@ metadata:
   name: webapp
   labels:
     app: webapp
-  namespace: test
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: webapp
@@ -22,8 +21,22 @@ spec:
             - containerPort: 80
           resources:
             requests:
-              cpu: 100m
+              cpu: 10
               memory: "500Mi"
             limits:
-              cpu: 1
-              memory: "1Gi"
+              cpu: 15
+              memory: "500Gi"
+
+
+
+
+
+
+
+
+
+
+
+
+
+

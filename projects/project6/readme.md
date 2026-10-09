@@ -4,7 +4,16 @@ kubectl create namespace prometheus
 Step - 2 : Install prometheus to K8S cluster.
 helm install prometheus prometheus-community/prometheus \
 --namespace prometheus \
---set alertmanager.persistentVolume.storageClass="monitor-ebs-storage" 
+--create-namespace \
+--set server.persistentVolume.storageClass="monitor-ebs-storage" \
+--set alertmanager.persistence.enabled=true \
+--set alertmanager.persistence.storageClass=monitor-ebs-storage
+
+(OR)
+
+helm install prometheus prometheus-community/prometheus \
+-n prometheus \
+-f values.yaml
 
 Step - 3 : Port forward to the prometheus server.
 kubectl port-forward svc/prometheus-server 9090:80 -n prometheus
@@ -17,7 +26,7 @@ helm install grafana grafana/grafana \
 --namespace grafana \
 --set persistence.storageClassName="monitor-ebs-storage" \
 --set persistence.enabled=true \
---set adminPassword='EKS!sAWSome' \
+--set adminPassword='shiva' \
 --values prometheus-datasource.yaml \
 --set service.type=LoadBalancer
 
@@ -81,7 +90,7 @@ This block defines where to send the notifications.
           {{ .CommonAnnotations.summary }}
           {{ .CommonAnnotations.description }}
         send_resolved: true
-        api_url: 'https://hooks.slack.com/services/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'
+        api_url: 'https://hooks.slack.com/services/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'
 
 Second Block:
 This block defines in which case where to send notifications. For example for below case if team, severity matches with devops, critical then it will send the notification to slack receiver which we added in above configuration if not to default receiver which is empty.
@@ -98,7 +107,7 @@ This block defines in which case where to send notifications. For example for be
         continue: true
 
 Reload the alert manager after updating the configmap of alertmanager with below curl. Update the port based on service port mapping port.
-curl -X POST http://localhost:9094/-/reload
+curl -X POST http://localhost:9095/-/reload
 
 Use "kubectl port-forward svc/prometheus-alertmanager 9093:9093 -n prometheus" to connect to alert manager.
 Reach out to https://api.slack.com/ to create a webhook url and follow below.
@@ -139,6 +148,6 @@ Disk Usage Percentage
 (node_filesystem_size_bytes{fstype!~"tmpfs|overlay"} - node_filesystem_free_bytes{fstype!~"tmpfs|overlay"}) / node_filesystem_size_bytes{fstype!~"tmpfs|overlay"} * 100
 
 Disk Space Availablility
-node_filesystem_free_bytes{fstype!~"tmpfs|overlay"Disk
+node_filesystem_free_bytes{fstype!~"tmpfs|overlay"}
 
 up{service="mysv-cip"}

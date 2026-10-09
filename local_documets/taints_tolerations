@@ -1,0 +1,121 @@
+# Kubernetes Taints and Tolerations
+
+This file explains Kubernetes taints and tolerations.
+
+## What is a taint?
+
+A taint is a property added to a node that says: "I am special, and I will reject certain pods unless they tolerate me."
+
+A node taint has three parts:
+- `key` - the name of the taint
+- `value` - additional information about the taint
+- `effect` - what happens to pods that do not tolerate the taint
+
+Example of a node taint:
+```yaml
+kubectl taint nodes node1 key=value:NoSchedule
+```
+This means: do not schedule pods on this node unless the pod has a matching toleration.
+
+## What is a toleration?
+
+A toleration is a property added to a pod.
+It says: "I can run on nodes with this specific taint."
+
+Example of a pod toleration:
+```yaml
+spec:
+  tolerations:
+  - key: "key"
+    operator: "Equal"
+    value: "value"
+    effect: "NoSchedule"
+```
+This means the pod can be scheduled on nodes that have the taint `key=value:NoSchedule`.
+
+## Why use taints and tolerations?
+
+- Taints are applied to nodes.
+- Tolerations are applied to pods.
+- Only pods with matching tolerations can run on tainted nodes.
+- This helps control where pods are allowed to run.
+
+## The three taint effects
+
+1. `NoSchedule`
+   - Pods that do not tolerate the taint will not be scheduled on the node.
+   - Existing pods already running on the node are not evicted.
+   - Use it when you want to keep most pods away from a node.
+
+2. `PreferNoSchedule`
+   - Kubernetes will try not to schedule non-tolerating pods on the node.
+   - It is a soft preference, not a strict rule.
+   - Use it when you prefer to avoid the node but do not require it.
+
+3. `NoExecute`
+   - Pods that do not tolerate the taint will be evicted if they are already running on the node.
+   - New pods without a matching toleration will also not be scheduled on the node.
+   - Use it when you need to actively remove or prevent pods from a node.
+
+## Simple examples
+
+### Taint: NoSchedule
+```yaml
+kubectl taint nodes node1 dedicated=database:NoSchedule
+```
+Pod toleration:
+```yaml
+spec:
+  tolerations:
+  - key: "dedicated"
+    operator: "Equal"
+    value: "database"
+    effect: "NoSchedule"
+```
+This pod can be scheduled on the node, while other pods without this toleration will not.
+
+### Taint: PreferNoSchedule
+```yaml
+kubectl taint nodes node1 gpu=true:PreferNoSchedule
+```
+Pod toleration:
+```yaml
+spec:
+  tolerations:
+  - key: "gpu"
+    operator: "Equal"
+    value: "true"
+    effect: "PreferNoSchedule"
+```
+This pod is allowed, but the scheduler will try to keep other pods away from the node if possible.
+
+### Taint: NoExecute
+```yaml
+kubectl taint nodes node1 maintenance=yes:NoExecute
+```
+Pod toleration:
+```yaml
+spec:
+  tolerations:
+  - key: "maintenance"
+    operator: "Equal"
+    value: "yes"
+    effect: "NoExecute"
+```
+This pod can stay on the node. all non-tolerating pods are removed or prevented from running.
+
+## Student-friendly analogy
+
+- Node taints are like warning signs on a room door.
+- Pod tolerations are like passes that say you are allowed inside.
+
+Taints say:
+- `NoSchedule` = "Do not let new people into the room unless they have a pass."
+- `PreferNoSchedule` = "Try not to put new people in the room unless necessary."
+- `NoExecute` = "Remove anyone without a pass, and do not let new people in."
+
+## Notes
+
+- Taints manage node behavior. tolerations manage pod behavior.
+- A pod must tolerate every taint on a node to be scheduled there.
+- A pod can have multiple tolerations to match different taints.

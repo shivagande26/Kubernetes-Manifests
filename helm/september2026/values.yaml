@@ -1,0 +1,23 @@
+apps:
+  webapp:
+    imgTag: latest
+    containerPort: 80
+  webappDeploy:
+    imgTag: stable-perl
+    containerPort: 80
+    replicaCount: 4
+  hpa:
+    deploy: false
+    webapp:
+      minReplicaCount: 2
+      maxReplicaCount: 10
+      targetCPUUtil: 50
+
+dbconfig:
+  mysqluname: admin
+  mysqlendpoint: test
+  mysqltoken: token
+  color: blue
+
+global:
+  imgVersion: latest

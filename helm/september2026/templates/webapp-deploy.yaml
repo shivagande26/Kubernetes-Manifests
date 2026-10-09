@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myappone-{{ .Release.Name }}
+  labels:
+    tier: api
+{{- include "app.tags" . | indent 4 }}
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: webapp
+    spec:
+      containers:
+        - name: mywebapp
+          {{- with .Values.apps.webappDeploy }}
+          image: nginx:{{ .imgTag }}
+          ports:
+            - containerPort: {{ .containerPort }}
+  replicas: {{ .replicaCount }}
+  selector:
+    matchLabels:
+      type: webapp
+      {{- end }}

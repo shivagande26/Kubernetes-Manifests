@@ -5,7 +5,7 @@ metadata:
   labels:
     type: frontend
 spec:
-  nodeName: ip-192-168-19-31.ec2.internal
+  nodeName: ip-192-168-13-228.ec2.internal
   containers:
     - name: app
       image: nginx

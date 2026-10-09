@@ -3,7 +3,7 @@ kind: ReplicaSet
 metadata:
   name: myapp
   labels:
-    typetypes: webappapp
+    type: webapp
 spec:
   template:
     metadata:
@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: mywebapp
-          image: nginx:stable-alpine
+          image: nginx
   replicas: 10
   selector:
     matchLabels:
